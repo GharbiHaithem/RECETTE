@@ -1,0 +1,45 @@
+.recette-wrapper{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin: 0 auto;
+
+}
+::placeholder {
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 2px;
+    color: var();
+  }
+
+  .input-form{
+    border: 1px solid var(--color-6f42c1) !important;
+  }
+  select  option{
+  
+    font-size: 12px;
+    color: var(--color-6f42c1);
+    font-weight: 200;
+  }
+  select{
+    border: 1px solid var(--color-6f42c1) !important;
+  }
+  .buttonModal{
+    background-image:linear-gradient(45deg,var(--color-6f42c1),var(--color-7011f5)) ;
+    color: white;
+    border: none;
+    width: 50px;
+    text-align: center;
+  }
+.recette-wrapper .x .box-img:hover .cancel{
+    opacity: 0.7;
+    top:0px
+  }
+  .cancel{
+    opacity: 0;
+    top:-40px;
+    right:0px;
+    background:#ddd;
+     width:100%;
+     height:40px
+
+
+  }

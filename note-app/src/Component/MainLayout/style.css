@@ -1,0 +1,21 @@
+@media screen and (max-width:600px) {
+    .x{
+  display: none;
+    }
+    .y{
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .position-relative {
+        display: none;
+    }
+   
+}
+
+body{
+    font-family: 'Cairo', sans-serif !important;
+
+  }
+  .ant-layout-content{
+    height: max-content;
+  }
