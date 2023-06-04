@@ -15,7 +15,7 @@ import { IoIosCloseCircleOutline } from 'react-icons/io'
 import FormModal from '../../Component/ModalForm'
 import { getAllCat } from '../../features/category/categorySlice'
 import { createRecette, getAllRecettes } from '../../features/recette/recetteSlice'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 const AddRecette = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate() 
@@ -24,14 +24,16 @@ const AddRecette = () => {
         // category: Yup.string().required('category is required'),
         description: Yup.string().required('description is required').min(50).max(1000)
     })
- 
+    const recetteState = useSelector(state=>state?.recette?.oneRecette)
+    const {title,description,category,images} = recetteState
     const formik = useFormik({
         initialValues: {
-            title: "",
-            category: "",
-            description: '',
-            images: ""
+            title: title || "",
+            category:category || "",
+            description: description || '',
+            images:images || ""
         },
+        enableReinitialize:true,
         validationSchema: schema,
         onSubmit: (values) => {
             alert(JSON.stringify(values, null, 2))
@@ -91,10 +93,10 @@ const AddRecette = () => {
         setOpen(false)
     }
 
-
+   const {id} = useParams()
     return (
         <>
-            <Creamb title={'ADD RECETTE'} />
+            <Creamb title={id !== undefined ? "Update Recette" : "Add Recette"} />
             <div className='recette-wrapper gap-20'  >
 
 
@@ -130,7 +132,7 @@ const AddRecette = () => {
                         </Dropzone>
                         {errorMsg && <div className='d-flex align-items-center justify-content-between gap-20 badge bg-secondary text-light p-2'><span >Error Type Image &nbsp; </span><span><MdCancel onClick={() => setErrorMsg(false)} style={{ color: 'white', fontSize: '17px' }} /></span></div>}
                     </div>
-                    <button type='submit' className='button text-light p-2 fs-6'>ADD RECETTE</button>
+                    <button type='submit' className='button text-light p-2 fs-6'>{id !== undefined ? "UPDATE RECETTE" : "ADD RECETTE"}</button>
                     {open && <FormModal onClose={closeForm} setOpen={setOpen} />}
                 </form>
                 <div className='d-flex flex-column gap-30 x'>

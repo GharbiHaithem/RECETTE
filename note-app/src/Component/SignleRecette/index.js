@@ -26,7 +26,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {useNavigate, useParams} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRecette, getAllRecettes, getRecette } from '../../features/recette/recetteSlice';
 import moment from 'moment'
@@ -92,7 +92,7 @@ const closeModal=()=>{
     <li><button className="dropdown-item" onClick={()=>{
       setOpen(true)
       }} >Delete</button></li>
-    <li><a className="dropdown-item" href="#">Another action</a></li>
+    <li><Link className="dropdown-item" to={`/myrecette/update/${id}`}>UPDATE</Link></li>
     <li><a className="dropdown-item" href="#">Something else here</a></li>
   </ul>
           </IconButton>

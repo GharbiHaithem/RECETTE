@@ -74,7 +74,9 @@ const MainLayout = ({ user }) => {
 
 useEffect(()=>{
   const fetchImg=async()=>{
-    await setImages(stateUser &&  stateUser?.pic)
+    await setTimeout(()=>{
+      setImages(stateUser &&  stateUser?.pic)
+    },400) 
      console.log(images)
    }
    fetchImg()

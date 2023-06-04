@@ -63,6 +63,8 @@ useEffect(()=>{
                 <Route path='add-recette' element={  <AddRecette/>  } />
                 <Route  path='recette-list' element={ <ListRecette/>} /> 
                 <Route  path='recette-details/:id' element={<SingleRecette/>} />
+                <Route  path='update/:id' element={<AddRecette/>} />
+                
             </Route> 
        </Routes>
     </BrowserRouter>

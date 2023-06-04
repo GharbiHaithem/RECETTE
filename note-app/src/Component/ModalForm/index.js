@@ -32,7 +32,6 @@ const FormModal = ({open,setOpen,onClose}) => {
   
      const handleClick = (event)=>{
         const myElement = myElementRef.current
-     
      if(event.target.classList.contains(`${myElement.className}`)){
         onClose()
      }
