@@ -28,7 +28,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteRecette, getAllRecettes, getRecette } from '../../features/recette/recetteSlice';
+import { addRecetteToWishList, deleteRecette, getAllRecettes, getRecette } from '../../features/recette/recetteSlice';
 import moment from 'moment'
 import './style.css'
 import { Modal } from '@mui/material';
@@ -57,8 +57,17 @@ export default function SingleRecette() {
   const dispatch = useDispatch()
 React.useEffect(()=>{
 dispatch(getRecette(id))
+
 },[dispatch,id])
-const recetteState = useSelector(state=>state?.recette?.oneRecette)
+const recetteState = useSelector(state=>state?.recette?.onerecette)
+const toogleState = useSelector(state=>state?.toogle?.darkMode)
+const[img,setImg]=React.useState(null)
+React.useEffect(()=>{
+  const getImg = async()=>{
+    await setImg(recetteState?.images && recetteState?.images[0].url)
+  }
+  getImg()
+},[recetteState?.images])
 const user = useSelector(state=>state?.auth?.user)
 const navigate = useNavigate()
 const handleDelete=(e)=>{
@@ -76,6 +85,31 @@ const showModal = ()=>{
 const closeModal=()=>{
   setOpen(false)
 }
+React.useEffect(()=>{
+  const selectElement = document.querySelector('.css-prb6n8-MuiPaper-root-MuiCard-root');
+  const selectElement2 = document.querySelector('.css-83ijpv-MuiTypography-root')
+  const selectElement3 = document.querySelector('.css-r40f8v-MuiTypography-root')
+  const selectElement4 = document.querySelector('.css-i4bv87-MuiSvgIcon-root')
+ const selectElement5 = document.querySelector('.anticon')
+ if(toogleState===true){
+  selectElement.style.background = "#001529"
+  selectElement.style.color="white"
+  selectElement2.style.color="white"
+  selectElement3.style.color="white"
+  selectElement4.style.color="white"
+  selectElement5.style.color="white"
+
+ }else{
+  selectElement.style.background = "white"
+  selectElement.style.color="black"
+  selectElement2.style.color="black"
+  selectElement3.style.color="black"
+  selectElement4.style.color="black"
+  selectElement5.style.color="black"
+  
+
+ }
+},[toogleState])
   return (<div className='container'>
 
 <Card sx={{ maxWidth: '80%' }}>
@@ -102,8 +136,8 @@ const closeModal=()=>{
       />
       <CardMedia
         component="img"
-        height={`${recetteState?.images[0] ? '350' : '0'}`}
-        image={recetteState?.images[0] ? recetteState?.images[0].url : ''}
+         height={` ${img && img ? '350' : '0'}`}
+          image={img ? img : ''}
        
         style={{objectFit:'cover'}}
       />
@@ -113,8 +147,8 @@ const closeModal=()=>{
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={()=>dispatch(addRecetteToWishList(recetteState?._id))}>
+          <FavoriteIcon  />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
@@ -128,35 +162,7 @@ const closeModal=()=>{
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>See Moore:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-            mussels, tucking them down into the rice, and cook again without
-            stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
+  
     </Card>
     {open && <ModalConfirm showModal={showModal} handleDelete={()=>{handleDelete(id)}} closeModal={closeModal}/>}
   </div>

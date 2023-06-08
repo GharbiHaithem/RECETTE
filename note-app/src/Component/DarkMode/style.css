@@ -1,0 +1,30 @@
+.switch-mode{
+    position: fixed;
+    top:200px;
+    right: 00px;
+    width: 50px;
+    height: 100px;
+    border: 1px solid black;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+}
+.icons{
+    position: absolute;
+    right: 100%;
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+ 
+    padding: 5px;
+    margin-right:40px ;
+}
+.open{
+    position: fixed;
+    top:200px;
+    right: 00px;
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+    transform: translateX(-25px);
+    transition: all 0.3s ease;
+}

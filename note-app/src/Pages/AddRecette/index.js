@@ -14,30 +14,54 @@ import { deleteImg, upload } from '../../features/upload/upload.Slice'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import FormModal from '../../Component/ModalForm'
 import { getAllCat } from '../../features/category/categorySlice'
-import { createRecette, getAllRecettes } from '../../features/recette/recetteSlice'
+import { createRecette, getAllRecettes, getRecette, resetAllRecette, updaterecette } from '../../features/recette/recetteSlice'
 import {useNavigate, useParams} from 'react-router-dom'
 const AddRecette = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate() 
-    let schema = Yup.object().shape({
+  
+    const {id} = useParams()
+    const recetteState = useSelector(state=>state?.recette)
+    const {titleRecette,descriptionRecette,categoryRecette,imagesRecette} = recetteState
+    useEffect(()=>{
+        if(id !==undefined){
+        dispatch(getRecette(id))
+        }else{
+            dispatch(resetAllRecette())
+        }
+       },[id,dispatch])
+       let schema = Yup.object().shape({
         title: Yup.string().required('title is required'),
         // category: Yup.string().required('category is required'),
-        description: Yup.string().required('description is required').min(50).max(1000)
+        description: Yup.string().required('description is required').min(50).max(6000)
     })
-    const recetteState = useSelector(state=>state?.recette?.oneRecette)
-    const {title,description,category,images} = recetteState
+ 
     const formik = useFormik({
+      
+  
         initialValues: {
-            title: title || "",
-            category:category || "",
-            description: description || '',
-            images:images || ""
+            title:id !== undefined ? titleRecette :'',
+            category:  id!==undefined ? categoryRecette :  '',
+            description: id !==undefined ? descriptionRecette : '',
+            images: id !== undefined ?  imagesRecette[0] ? imagesRecette[0].url : '' : ''
         },
-        enableReinitialize:true,
+       
         validationSchema: schema,
+       
         onSubmit: (values) => {
+
             alert(JSON.stringify(values, null, 2))
-            dispatch(createRecette(values))
+            if(id !== undefined){
+                const data = {id:id , recetteData:values}
+                dispatch(updaterecette(data))
+            }else{
+                dispatch(resetAllRecette())
+                dispatch(createRecette(values))    
+                setTimeout(()=>{
+                    dispatch(getAllRecettes())
+                },400)
+            }
+            
           
            
           formik.resetForm()
@@ -47,7 +71,20 @@ const AddRecette = () => {
           },400)
         }
     })
+        
+    useEffect(()=>{
+        console.log(id);
+        if(id === undefined){
+         
+            formik.resetForm()
+        }
+       },[id,dispatch])
+       
+       
     
+    useEffect(()=>{
+        console.log(formik.values.title,formik.values.description)
+    },[formik.values])
     useEffect(() => {
         dispatch(getAllCat())
        
@@ -93,7 +130,8 @@ const AddRecette = () => {
         setOpen(false)
     }
 
-   const {id} = useParams()
+  
+
     return (
         <>
             <Creamb title={id !== undefined ? "Update Recette" : "Add Recette"} />

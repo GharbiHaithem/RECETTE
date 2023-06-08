@@ -16,6 +16,7 @@ const passport = require('passport')
 const GoogleStrategy = require("./passport")
 const authGoogleRoute = require('./route/authGoogle.route')
 const session = require('express-session')
+
 app.use(cors())
 app.use(session({ 
     secret:'nosecret',

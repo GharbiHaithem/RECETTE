@@ -25,20 +25,34 @@ const recetteCtr = {
         }
     },
     getAllRecette:async(req,res)=>{
+        const ITEM_PER_PAGE = 3
+        const page = req.query.page || 1
+        const query={}
         try {
+            const skip = (page - 1) * ITEM_PER_PAGE
+            const count =await Recette.estimatedDocumentCount(query)
        
-          console.log({request:req.user})
-            const recettes = await Recette.find({postedBy:req.user.googleId})
+            const recettes = await Recette.find({postedBy:req.user.googleId},query)
+          
             console.log(recettes)
-           
-                       res.json(recettes)
+            const pageCount = count / ITEM_PER_PAGE
+                       res.json({recettes,
+                    pagination:{
+                        count,
+                        pageCount
+                    }
+                    })
         } catch (error) {
             res.json({message:error.message})
         }
     },
     getARecette:async(req,res)=>{
        const {id} = req.params
+      
+
         try {
+         
+           
             const recette = await Recette.findById(id)
             console.log(recette)
             res.json(recette)
@@ -52,6 +66,16 @@ const recetteCtr = {
             const {id} = req.params
             const recetteDel = await Recette.findByIdAndDelete(id)
             res.status(200).json(recetteDel)
+        } catch (error) {
+            res.json({message:error.message})
+        }
+    },
+    updateRecette:async(req,res)=>{
+        try {
+          console.log(req.user);
+          const { id } = req.params
+          const updateRecette = await Recette.findByIdAndUpdate(id,req.body,{new:true})  
+          res.status(200).json(updateRecette)
         } catch (error) {
             res.json({message:error.message})
         }

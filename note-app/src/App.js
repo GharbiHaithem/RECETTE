@@ -12,6 +12,8 @@ import ListRecette from './Pages/RecetteList';
 import { getAllRecettes } from './features/recette/recetteSlice';
 import SingleRecette from './Component/SignleRecette';
 import { OpenRoute } from './Component/Routes/openRoute';
+import WhishList from './Component/WhishList';
+import DarkMode from './Component/DarkMode';
 
 function App() {
  
@@ -40,6 +42,13 @@ useEffect(()=>{
    getUser()
 
 },[])
+
+const toogleState = useSelector(state=>state?.toogle?.darkMode)
+useEffect(()=>{
+ if(toogleState){
+  document.body.style.color='black'
+ }
+},[toogleState])
 // const userState = useSelector(state=>state?.auth?.user)
 
 
@@ -56,17 +65,22 @@ useEffect(()=>{
 
   return (
     <BrowserRouter>
+  
        <Routes>
             <Route path='/' element={<OpenRoute>< Login user={user}  /></OpenRoute>} />
             <Route path='/myrecette' element={<MainLayout user={user} />}>
+          
                 <Route index  element={<Home user={user}  /> } />
                 <Route path='add-recette' element={  <AddRecette/>  } />
                 <Route  path='recette-list' element={ <ListRecette/>} /> 
                 <Route  path='recette-details/:id' element={<SingleRecette/>} />
                 <Route  path='update/:id' element={<AddRecette/>} />
+                <Route path='wishList' element={<WhishList/>} />
                 
             </Route> 
+            
        </Routes>
+       {userstate && <DarkMode/> }
     </BrowserRouter>
   );
 }

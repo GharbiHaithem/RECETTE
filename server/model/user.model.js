@@ -7,8 +7,10 @@ const UserSchema =new mongoose.Schema({
   googleId:String,
   secret:String,
   pic:String,
-  token:String
-
+  token:String,
+  whishlist:[
+    {type:mongoose.Schema.Types.ObjectId,ref:'Recette'}
+  ]
 })
 // UserSchema.pre('save',async function(next){
 //     if(!this.isModified("password")){next()}

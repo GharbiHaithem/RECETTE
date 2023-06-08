@@ -21,9 +21,10 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 // import {basculeToogle} from '../../features/Toogle/toogleSlice'
 import { useDispatch, useSelector } from 'react-redux';
-
+import {HiOutlineHeart} from 'react-icons/hi'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import axios from 'axios';
+import { basculeToogle } from '../../features/toogle/toogleSlice';
 const { Header, Sider, Content } = Layout;
 const MainLayout = ({ user }) => {
   const navigate = useNavigate()
@@ -70,17 +71,17 @@ const MainLayout = ({ user }) => {
   const [images, setImages] = useState("")
   const stateUser = useSelector(state=>state?.auth?.user)
   console.log(stateUser)
-  
-
+   console.log(user)
+  const localstorage = (JSON.parse(localStorage.getItem('customer'))) || stateUser
 useEffect(()=>{
-  const fetchImg=async()=>{
-    await setTimeout(()=>{
-      setImages(stateUser &&  stateUser?.pic)
-    },400) 
-     console.log(images)
-   }
-   fetchImg()
-},[images,stateUser])
+const showImg = async()=>{
+  if(localstorage && user){
+   await setImages(localstorage?.pic)
+  }
+  else {  setImages(user?.pic)}
+}
+  showImg()
+},[localstorage,user])
  const recettestate = useSelector(state=>state?.recette?.recette)
  const[recettes,setRecettes]=useState([])
 useEffect(()=>{
@@ -90,6 +91,14 @@ useEffect(()=>{
   }
   setRecettes(data)
 },[recettestate]) 
+const toogleState = useSelector(state=>state?.toogle?.darkMode)
+useEffect(()=>{
+  let elem =  document.querySelector('.ant-layout-content')
+ if(elem){
+  elem.style.color = `${toogleState ? "black" : "white"}`
+
+ }
+},[toogleState])
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -138,8 +147,8 @@ useEffect(()=>{
 
           style={{
             padding: 0,
-            background: "white",
-            color: "#001529"
+            background:  toogleState ? "#001529" : "white",
+            color: toogleState ? "white" : "#001529",
           }}
           className={`d-flex justify-content-between align-items-center  ant-layout-header "}`}
         >
@@ -179,9 +188,9 @@ useEffect(()=>{
           <div className='pe-5'>
             <div className='d-flex justify-content-between align-items-center gap-30'>
 
-              <div className='position-relative notification'>
+              <div className='position-relative notification' >
 
-                <IoMdNotificationsOutline className='fs-1' />
+                <Link to='/myrecette/wishList'><HiOutlineHeart className='fs-1'/></Link>
                 <span className='badge bg-danger rounded-circle p-1 position-absolute' >5</span>
               </div>
 
@@ -189,7 +198,7 @@ useEffect(()=>{
 
 
                 <button class="btn btn-transparent border border-0 " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={images && images} style={{ width: '60px', height: '60px', borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
+                  <img src={images} style={{ width: '60px', height: '60px', borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
                 </button>
 
 
@@ -209,7 +218,7 @@ useEffect(()=>{
 
 
 
-              <div><button className='btn btn-warning btn-sm text-light' >TOOGLE</button></div>
+              <div><button className='btn btn-warning btn-sm text-light'  onClick={()=>dispatch(basculeToogle())}>TOOGLE</button></div>
             </div>
           </div>
 
@@ -219,12 +228,12 @@ useEffect(()=>{
             margin: '24px 16px',
             padding: 24,
             minHeight: 280,
-            //   background: toogleState ? "#001529" : "white",
-            //   color:toogleState ? "white" : "#001529"
-            background: "white",
-            color: "black",
+               background: toogleState ? "#001529" : "white",
+               color:toogleState ? "white" : "#001529",
+       
           }}
         >
+    
           <ToastContainer
             position="top-left"
             autoClose={5000}

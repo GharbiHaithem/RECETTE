@@ -87,6 +87,41 @@ const userCtrl = {
             res.status(500).json({ message: 'invalid credentials' })
         }
     },
+    addToWishList : async(req,res)=>{
+        const {_id} = req.user
+        const {recetteId} = req.body
+        try {
+            console.log(req.user)
+            const user = await User.findById(_id)
+            console.log(user)
+            const alreadyExist = user.whishlist.find((id)=>id.toString()===recetteId)
+            if(alreadyExist){
+                const updateUser = await User.findByIdAndUpdate(user._id,{
+                    $pull:{whishlist:recetteId}
+                },{new:true})
+                res.json(updateUser)
+            }else{
+                const addTowishList = await User.findByIdAndUpdate(user._id,{
+                    $push:{whishlist:recetteId}
+                },{new:true})
+                res.json(addTowishList)
+            }
+           
+        } catch (error) {
+            
+        }
+
+    },
+    getWishList: async (req, res) => {
+        const { _id } = req.user
+        try {
+            const wishList = await User.findById(_id)
+                .populate("whishlist")
+            res.json(wishList)
+        } catch (error) {
+            res.json({ message: error.message })
+        }
+    },
 
 }
 module.exports = userCtrl;

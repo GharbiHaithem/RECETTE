@@ -7,6 +7,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+a{
+  color: black;
+}
+a:hover{
+  color:black
+}
 body{
   font-family: 'Cairo', sans-serif !important;
   height: 100vh !important;

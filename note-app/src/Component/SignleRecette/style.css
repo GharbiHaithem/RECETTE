@@ -12,3 +12,6 @@ button:hover{
 
     background-color: white;
 }
+.ant-layout-content{
+    height: max-content !important;
+}

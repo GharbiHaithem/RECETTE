@@ -78,3 +78,15 @@ margin:10px;
   input{
     padding: 4px;
   }
+
+  @media screen and (max-width:600px) {
+    .login-wrapper .form-login-registre .swipper{
+        display: none;
+    }
+    .login-wrapper .form-login-registre .wwwww{
+        width: 100% !important;
+        padding: 20px 10px;
+        margin:0 auto  !important;
+    }
+   
+  }

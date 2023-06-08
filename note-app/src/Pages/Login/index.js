@@ -101,17 +101,17 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
                
                     <div className='row my-5'>
                     <div className='form-login-registre d-flex  align-items-center justify-content-between gap-20 my-5'>
-                        <div className='col-md-6 col-sm-6 col-lg-4'>
-                            <div className='swipper'>
+                        <div className='col-md-6 col-sm-12 col-lg-6'>
+                            <div className='swipper  col-sm-12'>
                             <SwiperSlider />
                             </div>
                         </div>
-                        <div className='col-md-6 col-sm-6 col-lg-6 '>
+                        <div className='col-md-6 col-sm-12 col-lg-6  wwwww'  >
                             <div className='form-login d-flex flex-column ' >
                                 <h5 className='text-center text-dark text-gradient'>Login</h5>
                                 <hr />
                                 <p className='text-center'></p>
-                                <form className='d-flex flex-column gap-10' onSubmit={formik.handleSubmit}>
+                                <form className='d-flex flex-column gap-10 '  onSubmit={formik.handleSubmit}>
 
                                     <CustomerInput type={'email'} title={'Email'} name='email' onChange={formik.handleChange('email')} className={'form-control'} value={formik.values.email} placeholder={'Email'} />
                                     {formik.touched.email && formik.errors.email ? <span className='p-1 badge bg-danger rounded-2'>

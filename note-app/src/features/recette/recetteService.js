@@ -32,7 +32,26 @@ const delrecette = async(id)=>{
     console.log(response.data)
     return  await response.data  
 }
+const updateRecette = async(data)=>{
+    console.log(data)
+    const response = await API.put(`/recette/update/${data.id}`,data.recetteData)
+    console.log(response.data);
+    return  await response.data  
+}
+const addwishlist = async(data)=>{
+    console.log(data)
+    const response = await API.put(`/user/addWidhList`,{recetteId:data})
+    console.log(response.data);
+    return  await response.data  
+}
+
+const getWishList = async(data)=>{
+    console.log(data)
+    const response = await API.get(`/user/wishListGet`)
+    console.log(response.data);
+    return  await response.data  
+}
 const recetteServices = {
-    createrecette,getAllrecette,getrecette,delrecette
+    createrecette,getAllrecette,getrecette,delrecette,updateRecette,addwishlist,getWishList
 } 
 export default recetteServices

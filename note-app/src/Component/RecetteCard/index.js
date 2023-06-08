@@ -8,9 +8,37 @@ import Typography from '@mui/material/Typography';
 import img from '../../images/patiss2.jpg'
 import { useNavigate } from 'react-router-dom';
 import { max } from 'moment';
+import { useSelector } from 'react-redux';
 const RecetteCard = ({ item }) => {
   const navigate = useNavigate()
   let str = item?.description.slice(0,100)
+  const toogleState = useSelector(state=>state?.toogle?.darkMode)
+  React.useEffect(()=>{
+   const elements = document.querySelectorAll('.MuiPaper-root')
+   const elements1=document.querySelectorAll('.css-r40f8v-MuiTypography-root')
+   if(toogleState && elements){
+    elements.forEach((elem)=>{
+      elem.style.background = "#001529"
+      elem.style.color="white"
+    })
+    elements1.forEach((elem1)=>{
+      elem1.style.backgroundColor="#001529"
+      elem1.style.color="white"
+    })
+      
+   }
+   else{
+    elements.forEach((elem)=>{
+      elem.style.background = "white"
+      elem.style.color="black"
+    })
+    elements1.forEach((elem1)=>{
+      elem1.style.backgroundColor="white"
+      elem1.style.color="black"
+    })
+
+   }
+  },[toogleState])
   return (
     <Card sx={{ maxWidth: 345,height:max }} onClick={()=>navigate(`/myrecette/recette-details/${item?._id}`)}>
       <CardMedia
