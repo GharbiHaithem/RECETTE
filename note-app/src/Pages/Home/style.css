@@ -1,0 +1,31 @@
+.card{
+  width: 100%;
+  height: 200px;
+box-shadow: 0 0 10px black;
+}
+.card img{
+    width: 100%;
+    height: 200px;
+}
+.card .desc {
+   position: absolute; 
+   bottom: 0px;
+   background-color: rgb(27, 27, 27 , 0.3);
+   width: 100%;
+   height: 60px;
+   opacity: 0;
+}
+.card .desc p {
+    opacity: 0;
+    padding:20px;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 20px;
+
+}
+.card:hover .desc p {
+    opacity: 1;
+}
+.card:hover .desc{
+    opacity: 1;
+}
