@@ -49,6 +49,27 @@ useEffect(()=>{
   document.body.style.color='black'
  }
 },[toogleState])
+const [isScreenSmall, setIsScreenSmall] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    const isSmall = window.matchMedia("(max-width: 600px)").matches;
+    setIsScreenSmall(isSmall);
+  };
+
+  // Ajoute un écouteur d'événement pour détecter les changements de taille d'écran
+  window.addEventListener("resize", handleResize);
+
+  // Vérifie la taille de l'écran au chargement initial de la page
+  handleResize();
+  console.log(isScreenSmall)
+  // Nettoie l'écouteur d'événement lorsque le composant est démonté
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+
+}, [isScreenSmall]);
+
 // const userState = useSelector(state=>state?.auth?.user)
 
 
@@ -68,12 +89,12 @@ useEffect(()=>{
   
        <Routes>
             <Route path='/' element={<OpenRoute>< Login user={user}  /></OpenRoute>} />
-            <Route path='/myrecette' element={<MainLayout user={user} />}>
+            <Route path='/myrecette' element={<MainLayout user={user} isScreenSmall={isScreenSmall} />}>
           
                 <Route index  element={<Home user={user}  /> } />
                 <Route path='add-recette' element={  <AddRecette/>  } />
-                <Route  path='recette-list' element={ <ListRecette/>} /> 
-                <Route  path='recette-details/:id' element={<SingleRecette/>} />
+                <Route  path='recette-list' element={ <ListRecette  isScreenSmall={isScreenSmall} />} /> 
+                <Route  path='recette-details/:id' element={<SingleRecette  isScreenSmall={isScreenSmall}/>} />
                 <Route  path='update/:id' element={<AddRecette/>} />
                 <Route path='wishList' element={<WhishList/>} />
                 

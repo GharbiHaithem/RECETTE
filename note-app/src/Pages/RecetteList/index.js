@@ -7,7 +7,7 @@ import RecetteCard from '../../Component/RecetteCard'
 import './style.css'
 import Pagination from '../../Component/Pagination'
 
-const ListRecette = () => {
+const ListRecette = ({isScreenSmall}) => {
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostPerPage] = useState(3)
@@ -46,7 +46,7 @@ const ListRecette = () => {
                     {
                         currentPost && currentPost?.map((item, index) => {
                             return (<>
-                                <div className='col-md-4' key={index}>
+                                <div className='col-md-4  col-sm-12 col-lg-3' key={index}>
                                     <RecetteCard item={item} />
                                 </div>
                             </>)
@@ -54,7 +54,7 @@ const ListRecette = () => {
                     }
                 </div>
                
-                <Pagination totalPosts={recetteState?.length}  postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
+                <Pagination totalPosts={recetteState?.length}  postsPerPage={postsPerPage} isScreenSmall={isScreenSmall} setCurrentPage={setCurrentPage}/>
             </div>
             {showButton && <div style={{ bottom: 50, right: 50, position: 'fixed' }}>
                 <button style={{ width: '100%', padding: '5px', borderRadius: '50%' }} onClick={scrollToTop}><MdOutlineVerticalAlignTop className='fs-3' /></button>

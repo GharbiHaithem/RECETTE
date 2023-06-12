@@ -6,16 +6,26 @@
         font-size: 14px;
         font-weight: 400;
     }
-    .position-relative {
-        display: none;
-    }
+.text-small{
+  font-size: 12px;
+  font-weight: 200;
+}
    
 }
 
 body{
     font-family: 'Cairo', sans-serif !important;
+    
 
   }
   .ant-layout-content{
     height: max-content;
   }
+  
+  @media screen and(max-width:600px) {
+   aside.ant-layout-sider.ant-layout-sider-dark{
+  
+    width: 100px;
+   }
+  }
+  

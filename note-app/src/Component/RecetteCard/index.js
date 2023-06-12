@@ -39,8 +39,28 @@ const RecetteCard = ({ item }) => {
 
    }
   },[toogleState])
+  const [isScreenSmall, setIsScreenSmall] = React.useState(false);
+
+React.useEffect(() => {
+  const handleResize = () => {
+    const isSmall = window.matchMedia("(max-width: 600px)").matches;
+    setIsScreenSmall(isSmall);
+  };
+
+  // Ajoute un écouteur d'événement pour détecter les changements de taille d'écran
+  window.addEventListener("resize", handleResize);
+
+  // Vérifie la taille de l'écran au chargement initial de la page
+  handleResize();
+  console.log(isScreenSmall)
+  // Nettoie l'écouteur d'événement lorsque le composant est démonté
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+
+}, [isScreenSmall]);
   return (
-    <Card sx={{ maxWidth: 345,height:max }} onClick={()=>navigate(`/myrecette/recette-details/${item?._id}`)}>
+    <Card className='col-sm-12' sx={{ maxWidth: isScreenSmall ? 345 :  345,height:max }} onClick={()=>navigate(`/myrecette/recette-details/${item?._id}`)}>
       <CardMedia
         sx={{ height: 140 }}
         image={item?.images[0]?.url}

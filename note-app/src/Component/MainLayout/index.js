@@ -23,10 +23,13 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {HiOutlineHeart} from 'react-icons/hi'
 import { Typeahead } from 'react-bootstrap-typeahead';
+import {CiLight} from 'react-icons/ci'
+import {MdModeNight} from 'react-icons/md'
 import axios from 'axios';
 import { basculeToogle } from '../../features/toogle/toogleSlice';
 const { Header, Sider, Content } = Layout;
-const MainLayout = ({ user }) => {
+
+const MainLayout = ({ user,isScreenSmall }) => {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const showModal = () => {
@@ -60,14 +63,47 @@ const MainLayout = ({ user }) => {
   const [collapsedActive, setCollapsedActive] = useState(false)
   useEffect(() => {
     let elem = document.querySelector('.ant-layout-sider-collapsed')
+    let elem1 = document.querySelector('.ant-layout-sider')
+    let elem3 = document.querySelector('.ant-layout-content css-dev-only-do-not-override-w8mnev')
+    setCollapsedActive(true)
     // let elem2 = document.querySelector('.large-logo')
     // let elem3 = document.querySelector('.sm-logo')
-
-    if (elem) {
-      setCollapsedActive(true)
+    console.log(isScreenSmall)
+    if(elem3 && isScreenSmall){
+      elem3.style.width='100%'
     }
+     if(elem && isScreenSmall ){
+    
+      elem.style.maxWidth='60px'
+      elem.style.minWidth='60px'
+      elem.style.width='60px'
+      
+      elem.style.background="white"
+      
+      
+     }
+     if(elem1 && isScreenSmall){
+      elem1.style.maxWidth='60px'
+      elem1.style.minWidth='60px'
+      elem1.style.width='60px'
+      
+      elem1.style.background="white"
+      
+     }
+
+ 
     console.log(collapsedActive)
-  }, [collapsedActive])
+  }, [collapsedActive,isScreenSmall])
+
+  useEffect(()=>{
+const btn = document.querySelector('.ant-btn')
+
+    if(isScreenSmall  && btn){
+      setCollapsed(true)
+      btn.style.display='none'
+    }
+  },[isScreenSmall])
+
   const [images, setImages] = useState("")
   const stateUser = useSelector(state=>state?.auth?.user)
   console.log(stateUser)
@@ -186,19 +222,19 @@ useEffect(()=>{
 
           />
           <div className='pe-5'>
-            <div className='d-flex justify-content-between align-items-center gap-30'>
+            <div className='d-flex justify-content-between  gap-10'>
 
               <div className='position-relative notification' >
 
                 <Link to='/myrecette/wishList'><HiOutlineHeart className='fs-1'/></Link>
                 <span className='badge bg-danger rounded-circle p-1 position-absolute' >5</span>
               </div>
-
-              <div className='d-flex gap-10 align-items-center nav-item   dropdown'>
+<div className='d-flex align-items-center '>
+              <div className=' nav-item   dropdown'>
 
 
                 <button class="btn btn-transparent border border-0 " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={images} style={{ width: '60px', height: '60px', borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
+                  <img src={images} style={{ width: `${isScreenSmall ? "35px" :  "60px"}`, height: `${isScreenSmall ? "35px" :  "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
                 </button>
 
 
@@ -212,13 +248,13 @@ useEffect(()=>{
 
 
               <div  >
-                <h5 className='mb-0 y' >{stateUser && stateUser?.fullname}</h5>
+                <h5 className={`mb-0 ${isScreenSmall ? "text-small" : "y"}`} >{stateUser && stateUser?.fullname}</h5>
                 <p className='mb-0 mt-2 x' style={{ lineHeight: 0 }}>{stateUser && stateUser?.email}</p>
+              </div>
               </div>
 
 
-
-              <div><button className='btn btn-warning btn-sm text-light'  onClick={()=>dispatch(basculeToogle())}>TOOGLE</button></div>
+              <div onClick={()=>dispatch(basculeToogle())}>{toogleState ? <CiLight className='fs-4'/> : <MdModeNight className='fs-4' />}</div>
             </div>
           </div>
 

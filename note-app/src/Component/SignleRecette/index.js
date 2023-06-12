@@ -29,7 +29,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { addRecetteToWishList, deleteRecette, getAllRecettes, getRecette } from '../../features/recette/recetteSlice';
-import moment from 'moment'
+import moment, { isDate } from 'moment'
 import './style.css'
 import { Modal } from '@mui/material';
 import ModalConfirm from '../ModalConfirm';
@@ -48,7 +48,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function SingleRecette() {
+export default function SingleRecette({ isScreenSmall}) {
   const [expanded, setExpanded] = React.useState(false);
   const {id} = useParams()
   const handleExpandClick = () => {
@@ -78,6 +78,7 @@ dispatch(getAllRecettes())
 navigate('/myrecette/recette-list')
 },1000)
 }
+const [liked , setIsLiked] = React.useState(false)
 const[open,setOpen] = React.useState(false)
 const showModal = ()=>{
   setOpen(true)
@@ -85,13 +86,24 @@ const showModal = ()=>{
 const closeModal=()=>{
   setOpen(false)
 }
+const stateWishList = useSelector(state=>state?.recette?.wishlist)
+React.useEffect(()=>{
+ const verifIsLiked  =  stateWishList?.whishlist?.find((item)=>(item === id))
+  console.log(verifIsLiked)
+  if(verifIsLiked ){
+    setIsLiked(true)
+  }else{
+    setIsLiked(false)
+  }
+console.log(liked)
+},[stateWishList,id,liked])
 React.useEffect(()=>{
   const selectElement = document.querySelector('.css-prb6n8-MuiPaper-root-MuiCard-root');
   const selectElement2 = document.querySelector('.css-83ijpv-MuiTypography-root')
   const selectElement3 = document.querySelector('.css-r40f8v-MuiTypography-root')
   const selectElement4 = document.querySelector('.css-i4bv87-MuiSvgIcon-root')
  const selectElement5 = document.querySelector('.anticon')
- if(toogleState===true){
+ if(selectElement && selectElement2 && selectElement3 && selectElement4 && selectElement5 && toogleState===true){
   selectElement.style.background = "#001529"
   selectElement.style.color="white"
   selectElement2.style.color="white"
@@ -99,7 +111,7 @@ React.useEffect(()=>{
   selectElement4.style.color="white"
   selectElement5.style.color="white"
 
- }else{
+ }else if(selectElement && selectElement2 && selectElement3 && selectElement4 && selectElement5 && toogleState===false){
   selectElement.style.background = "white"
   selectElement.style.color="black"
   selectElement2.style.color="black"
@@ -112,7 +124,7 @@ React.useEffect(()=>{
 },[toogleState])
   return (<div className='container'>
 
-<Card sx={{ maxWidth: '80%' }}>
+<Card  sx={{ maxWidth: '100%' }}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe">
@@ -136,7 +148,8 @@ React.useEffect(()=>{
       />
       <CardMedia
         component="img"
-         height={` ${img && img ? '350' : '0'}`}
+         height={` ${img && img &&  isScreenSmall ? '200' : '300'}`}
+
           image={img ? img : ''}
        
         style={{objectFit:'cover'}}
@@ -147,8 +160,10 @@ React.useEffect(()=>{
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={()=>dispatch(addRecetteToWishList(recetteState?._id))}>
-          <FavoriteIcon  />
+        <IconButton aria-label="add to favorites" onClick={()=>{ 
+         
+          dispatch(addRecetteToWishList(recetteState?._id))}}>
+         {liked ? <FavoriteIcon  style={{color:"red",fontSize:'30px'}} /> : <FavoriteIcon  />} 
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
