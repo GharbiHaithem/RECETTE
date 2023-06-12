@@ -15,7 +15,7 @@ const passport = require('passport')
 passport.use(new GoogleStrategy({
     clientID: "483148789252-3u00lc95p6ct96nh1hedoc2l0d392aja.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: "https://recette-crud.onrender.com/auth/google/callback",
+    callbackURL: "http://localhost:5000/auth/google/callback",
     scope: ["profile", "email"],
     userProfileURL:"https://www.googleapis.com/oauth2/v3/userinfo"
 
