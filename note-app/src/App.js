@@ -30,7 +30,7 @@ if(userstate)
 useEffect(()=>{
   const getUser = async()=>{
     try{
-  const url = `http://localhost:5000/auth/login/success`;
+  const url = `https://recette-crud.onrender.com/auth/login/success`;
   const response = await axios.get(url,{withCredentials:true})
   console.log(response)
    setUser(response.data.user)

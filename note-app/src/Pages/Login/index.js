@@ -39,7 +39,7 @@ const userState = useSelector(state=>state?.auth?.user)
     const getUser = async()=>{
         try{
     
-        const url = `http://localhost:5000/auth/login/success`;
+        const url = `https://recette-crud.onrender.com/auth/login/success`;
         const response = await axios.get(url,{withCredentials:true})
         console.log(response)
          setUser(response.data.user)
@@ -86,7 +86,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 
       const handleClick = (e)=>{
   e.preventDefault()
-            window.open("http://localhost:5000/auth/google/callback","_self")
+            window.open("https://recette-crud.onrender.com/auth/google/callback","_self")
             setGetUserFromGoogle(true)
   
        
