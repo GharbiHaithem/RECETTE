@@ -12,6 +12,10 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import {CiLight} from 'react-icons/ci'
 import {MdModeNight} from 'react-icons/md'
 import { basculeToogle } from '../../features/toogle/toogleSlice';
+import {SiMicrosoftonenote} from 'react-icons/si'
+import {MdArrowDropDown} from 'react-icons/md'
+import {MdAssignmentAdd} from 'react-icons/md'
+import {TbListNumbers} from 'react-icons/tb' 
 const MainLayout1 = ({ user,isScreenSmall }) => {
      const navigate = useNavigate()
     const [open, setOpen] = useState(false)
@@ -93,12 +97,15 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
   useEffect(()=>{
   const showImg = async()=>{
     if(localstorage && user){
-     await setImages(localstorage?.pic)
+      setImages(localstorage?.pic)
     }
     else {  setImages(user?.pic)}
+    return  await images
   }
-    showImg()
+  showImg()
+    console.log(images)
   },[localstorage,user])
+  const imgUrl = useSelector(state=>state?.auth?.user?.pic)
    const recettestate = useSelector(state=>state?.recette?.recette)
    const[recettes,setRecettes]=useState([])
   useEffect(()=>{
@@ -135,10 +142,10 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
            
                 <div className='row'>
                     <div className='col-md-12 col-lg-12'>
-                    <div className='header-main '>
-                       <div className='row d-flex align-items-center' >
+                    <div className='header-main py-3'>
+                       <div className='row d-flex  align-items-center ' >
                      
-                        <div className='mx-2' style={{width:`${isScreenSmall ? '45%' : '45%'}`}}>
+                        <div className='mx-3' style={{width:`${isScreenSmall ? '40%' : '45%'}`}}>
                         <Typeahead
             id="pagination-example"
             onPaginate={() => console.log('Results paginated')}
@@ -159,13 +166,13 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
 
           />
                         </div>
-                        <div className={` `} style={{  width:`${isScreenSmall ? '37%' : '30%' }`}}>
+                        <div className={` `} style={{  width:`${isScreenSmall ? '35%' : '30%' }`}}>
                         <div className='d-flex align-items-center '>
               <div className=' nav-item   dropdown'>
 
 
                 <button class="btn btn-transparent border border-0 " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={images} style={{ width: `${isScreenSmall ? "35px" :  "60px"}`, height: `${isScreenSmall ? "35px" :  "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
+                  <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" :  "60px"}`, height: `${isScreenSmall ? "35px" :  "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
                 </button>
 
 
@@ -194,8 +201,18 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
             <div className='row '>
               
                
-                <div className='left-side-bar' style={{width:`${isScreenSmall ?'25%' : '30%'}`}}>
-              
+                <div className='left-side-bar' style={{padding:"20px",width:`${isScreenSmall ?'25%' : '10%'}`}}>
+                <div class="dropdown">
+  <Link class={`btn ${toogleState ? "btn-transparent text-light" : "btn-transparent" }  dropdown-toggle`}  to="#"  id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+  <SiMicrosoftonenote className={`${toogleState ? "text-light" : "text-dark"} fs-3`}/><MdArrowDropDown className={`${toogleState ? "text-light" : "text-dark"} fs-3`} style={{marginLeft:'20px'}} />
+  </Link>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><Link class="dropdown-item" to={'add-recette'}><MdAssignmentAdd className='fs-3'/>ADD</Link></li>
+    <li><Link class="dropdown-item" to="recette-list"><TbListNumbers className='fs-3'/>LIST</Link></li>
+    
+  </ul>
+</div>
 
                 </div>
            
