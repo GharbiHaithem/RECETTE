@@ -14,6 +14,7 @@ import SingleRecette from './Component/SignleRecette';
 import { OpenRoute } from './Component/Routes/openRoute';
 import WhishList from './Component/WhishList';
 import DarkMode from './Component/DarkMode';
+import MainLayout1 from './Component/MainLayout1';
 
 function App() {
  
@@ -89,7 +90,7 @@ useEffect(() => {
   
        <Routes>
             <Route path='/' element={<OpenRoute>< Login user={user}  /></OpenRoute>} />
-            <Route path='/myrecette' element={<MainLayout user={user} isScreenSmall={isScreenSmall} />}>
+            <Route path='/myrecette' element={<MainLayout1 user={user} isScreenSmall={isScreenSmall} />}>
           
                 <Route index  element={<Home user={user}  /> } />
                 <Route path='add-recette' element={  <AddRecette/>  } />

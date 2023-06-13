@@ -17,7 +17,7 @@ const Home = ({user}) => {
 },[dispatch,user])
 const recettestaus = useSelector(state=>state?.recette?.recette)
     return (
-        <div className='home-wrapper'>
+        <div className='home-wrapper my-4'>
          <div className='container'>
             <div className='row'> 
               {
