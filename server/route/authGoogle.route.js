@@ -19,7 +19,7 @@ router.get("/auth/login/failed",(req,res)=>{
 })
 router.get("/auth/google",passport.authenticate("google",["profile","email"]))
 router.get("/auth/google/callback",passport.authenticate("google",{
-    successRedirect:"https://recette-crud-front-end.onrender.com",
+    successRedirect:"https://recette-crud-front-end.onrender.com/myrecette",
     failureRedirect:"/login/failed"
 }))
 router.get("/auth/logout",async(req,res)=>{

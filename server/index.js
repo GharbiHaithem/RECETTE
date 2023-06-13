@@ -59,7 +59,7 @@ app.use(cors({
 
 
 
-app.use('/',authGoogleRoute)
+app.use('/api',authGoogleRoute)
 app.use('/api/user',authRoute)
 
 app.use('/api/recette',recetteRoute)
