@@ -1,0 +1,45 @@
+.header-main{
+    height: 100px;
+    background-color: #ffffff;
+    width: 100%;
+    border-bottom: 1px solid rgb(168, 160, 160);
+}
+.left-side-bar{
+ 
+    
+    border-right: 1px solid rgb(197, 184, 184);
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+@media screen and (max-width:600px) {
+    .x{
+  display: none;
+    }
+    .y{
+        font-size: 14px;
+        font-weight: 400;
+    }
+.text-small{
+  font-size: 12px;
+  font-weight: 200;
+}
+   
+}
+
+body{
+    font-family: 'Cairo', sans-serif !important;
+    
+
+  }
+  .ant-layout-content{
+    height: max-content;
+  }
+  
+  @media screen and(max-width:600px) {
+   aside.ant-layout-sider.ant-layout-sider-dark{
+  
+    width: 100px;
+   }
+  }
+  
