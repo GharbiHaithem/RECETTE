@@ -16,7 +16,7 @@ import {logout} from '../../features/auth/authSlice'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import me from '../../images/patiss1.jpg'
 
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 // import {basculeToogle} from '../../features/Toogle/toogleSlice'
@@ -27,6 +27,7 @@ import {CiLight} from 'react-icons/ci'
 import {MdModeNight} from 'react-icons/md'
 import axios from 'axios';
 import { basculeToogle } from '../../features/toogle/toogleSlice';
+import { theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = ({ user,isScreenSmall }) => {
@@ -54,9 +55,7 @@ const MainLayout = ({ user,isScreenSmall }) => {
   }, [])
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch()
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const { token: { colorBgContainer } } = theme.useToken();
 
 
   //    const toogleState=useSelector(state=>state.toogle.darkMode)
