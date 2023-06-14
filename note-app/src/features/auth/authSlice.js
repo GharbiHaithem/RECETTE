@@ -56,7 +56,7 @@ export const authSlice = createSlice({
         state.isError=false
         localStorage.clear()
         state.isLoagin=false
-        window.open(`http://localhost:3000`,'_self')
+        window.open(`https://mern-recette-client.vercel.app`,'_self')
       })
      }
 

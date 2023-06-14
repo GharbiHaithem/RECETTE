@@ -41,7 +41,7 @@ const userState = useSelector(state=>state?.auth?.user)
     const getUser = async()=>{
         try{
     
-        const url = `${base_url}/auth/login/success`;
+        const url = `http://localhost:5000/api/auth/login/success`;
         const response = await axios.get(url,{withCredentials:true})
         console.log(response)
          setUser(response.data.user)
@@ -88,7 +88,8 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 
       const handleClick = (e)=>{
   e.preventDefault()
-            window.open(`${base_url}/auth/google/callback`,"_self")
+  console.log(base_url);
+            window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
             setGetUserFromGoogle(true)
   
        
