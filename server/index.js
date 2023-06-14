@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const dotenv = require('dotenv').config()
-const PORT = process.env.PORT || 5000;
+
 const cors = require('cors')
 const authRoute = require('./route/auth.route')
 const recetteRoute = require('./route/recette.route')
@@ -16,7 +16,7 @@ const passport = require('passport')
 const GoogleStrategy = require("./passport")
 const authGoogleRoute = require('./route/authGoogle.route')
 const session = require('express-session')
-
+const PORT = process.env.PORT || 10000;
 app.use(cors())
 app.use(session({ 
     secret:'nosecret',
