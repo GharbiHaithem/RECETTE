@@ -86,7 +86,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 
       const handleClick = (e)=>{
   e.preventDefault()
-            window.open("http://localhost:5000/api/auth/google/callback","_self")
+            window.open("https://recette-crud.onrender.com/api/auth/google/callback","_self")
             setGetUserFromGoogle(true)
   
        
