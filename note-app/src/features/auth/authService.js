@@ -1,7 +1,7 @@
 
 import axios from 'axios'
-
-const API = axios.create({baseURL:"https://recette-crud.onrender.com/api"});
+const base_url = process.env.BASE_URL
+const API = axios.create({baseURL:base_url});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${

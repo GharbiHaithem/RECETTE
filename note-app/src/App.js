@@ -17,7 +17,7 @@ import DarkMode from './Component/DarkMode';
 import MainLayout1 from './Component/MainLayout1';
 
 function App() {
- 
+ const base_url = process.env.BASE_URL
   const dispatch = useDispatch()
 const userstate  = useSelector(state=>state?.auth?.user)
   const [user,setUser] =useState(null)
@@ -30,7 +30,7 @@ if(userstate)
 useEffect(()=>{
   const getUser = async()=>{
     try{
-  const url = `https://recette-crud.onrender.com/api/auth/login/success`;
+  const url = `${base_url}/auth/login/success`;
   
   const response = await axios.get(url,{withCredentials:true})
   console.log(response)

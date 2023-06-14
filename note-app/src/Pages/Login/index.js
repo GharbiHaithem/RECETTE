@@ -13,6 +13,7 @@ import servicesAuth from '../../features/auth/authService'
 
 const Login = () => {
     const navigate = useNavigate()
+    const base_url = process.env.BASE_URL
     const dispatch=useDispatch()
     let schema = Yup.object().shape({
         email: Yup.string().required('required').email('must be an email valid'),
@@ -39,7 +40,7 @@ const userState = useSelector(state=>state?.auth?.user)
     const getUser = async()=>{
         try{
     
-        const url = `https://recette-crud.onrender.com/api/auth/login/success`;
+        const url = `${base_url}/auth/login/success`;
         const response = await axios.get(url,{withCredentials:true})
         console.log(response)
          setUser(response.data.user)
@@ -86,7 +87,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 
       const handleClick = (e)=>{
   e.preventDefault()
-            window.open("https://recette-crud.onrender.com/api/auth/google/callback","_self")
+            window.open(`${base_url}/auth/google/callback`,"_self")
             setGetUserFromGoogle(true)
   
        
