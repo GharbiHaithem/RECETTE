@@ -15,9 +15,10 @@ import { OpenRoute } from './Component/Routes/openRoute';
 import WhishList from './Component/WhishList';
 import DarkMode from './Component/DarkMode';
 import MainLayout1 from './Component/MainLayout1';
-
+import {base_url } from './utils/baseUrl'
 function App() {
- const base_url = process.env.BASE_URL
+
+ console.log(base_url)
   const dispatch = useDispatch()
 const userstate  = useSelector(state=>state?.auth?.user)
   const [user,setUser] =useState(null)

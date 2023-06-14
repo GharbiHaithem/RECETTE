@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createUser } from '../../features/auth/authSlice'
 import axios from 'axios'
 import servicesAuth from '../../features/auth/authService'
-
+import {base_url } from '../../utils/baseUrl'
 const Login = () => {
     const navigate = useNavigate()
-    const base_url = process.env.BASE_URL
+    
+    console.log(base_url);
     const dispatch=useDispatch()
     let schema = Yup.object().shape({
         email: Yup.string().required('required').email('must be an email valid'),

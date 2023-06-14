@@ -1,7 +1,5 @@
 import axios from 'axios'
-
-
-const base_url = process.env.BASE_URL
+import {base_url } from '../../utils/baseUrl'
 const API = axios.create({baseURL:base_url});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
