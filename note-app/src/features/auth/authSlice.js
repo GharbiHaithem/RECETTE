@@ -56,7 +56,7 @@ export const authSlice = createSlice({
         state.isError=false
         localStorage.clear()
         state.isLoagin=false
-        window.open(`https://recette-crud-front-end.onrender.com`,'_self')
+        window.open(`http://localhost:3000`,'_self')
       })
      }
 
