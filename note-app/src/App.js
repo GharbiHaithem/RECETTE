@@ -17,6 +17,11 @@ import DarkMode from './Component/DarkMode';
 import MainLayout1 from './Component/MainLayout1';
 import {base_url } from './utils/baseUrl'
 import Register from './Component/Register';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
 
  console.log(base_url)
@@ -107,6 +112,20 @@ useEffect(() => {
             
        </Routes>
        {/* {userstate && <DarkMode/> } */}
+       <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
     </BrowserRouter>
   );
 }
