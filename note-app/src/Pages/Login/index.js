@@ -128,7 +128,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
                                   
 
                                    <div className='d-flex justify-content-between fs-6'>
-                                    <Link  style={{ textDecoration: 'none'}} >Register</Link>
+                                    <Link  style={{ textDecoration: 'none'}} to='/register'>Register</Link>
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>

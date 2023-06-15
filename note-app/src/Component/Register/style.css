@@ -1,0 +1,21 @@
+
+.register-wrapper{
+  
+    width: 70%;
+    margin:0 auto;
+}
+.form-register{
+  
+    width: 100%;
+}
+.x{
+    width: 100%;
+}
+@media screen and(max-width:600px){
+    .register-wrapper{
+  
+        width: 100%;
+        margin:0 auto;
+    }
+  
+}

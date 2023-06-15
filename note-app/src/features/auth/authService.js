@@ -15,7 +15,7 @@ const loginUser = async(data)=>{
     return await response.data
 }
 
-const createOrUpdateUser = async(data)=>{
+const createUser = async(data)=>{
   
     
     const response = await API.post(`/user/registre`,data)
@@ -25,6 +25,6 @@ const createOrUpdateUser = async(data)=>{
 }   
 
 const servicesAuth = {
-    loginUser,createOrUpdateUser
+    loginUser,createUser
 }
 export default servicesAuth; 

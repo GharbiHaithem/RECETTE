@@ -16,6 +16,7 @@ import WhishList from './Component/WhishList';
 import DarkMode from './Component/DarkMode';
 import MainLayout1 from './Component/MainLayout1';
 import {base_url } from './utils/baseUrl'
+import Register from './Component/Register';
 function App() {
 
  console.log(base_url)
@@ -92,6 +93,7 @@ useEffect(() => {
   
        <Routes>
             <Route path='/' element={<OpenRoute>< Login user={user}  /></OpenRoute>} />
+            <Route path='/register' element={<Register/>} />
             <Route path='/myrecette' element={<MainLayout1 user={user} isScreenSmall={isScreenSmall} />}>
           
                 <Route index  element={<Home user={user}  /> } />
@@ -104,7 +106,7 @@ useEffect(() => {
             </Route> 
             
        </Routes>
-       {userstate && <DarkMode/> }
+       {/* {userstate && <DarkMode/> } */}
     </BrowserRouter>
   );
 }

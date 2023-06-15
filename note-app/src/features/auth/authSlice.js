@@ -15,17 +15,18 @@ export const login = createAsyncThunk('/auth/login',async(data,thunkAPI)=>{
     try {
         return  await serviceauth.loginUser(data)
     } catch (error) {
-        thunkAPI.rejectWithValue(error)
+      return  thunkAPI.rejectWithValue(error)
     }
 })
 export const createUser = createAsyncThunk('/auth/create',async(data,thunkAPI)=>{
     try {
         console.log(data)
-        return  await serviceauth.createOrUpdateUser(data)
+        return  await serviceauth.createUser(data)
     } catch (error) {
-        thunkAPI.rejectWithValue(error)
+      return  thunkAPI.rejectWithValue(error)
     }
 })
+export const resetState = createAction('resetState')
 export const logout = createAction('logoutAction')
 export const authSlice = createSlice({
     name:'auth',
@@ -39,16 +40,24 @@ export const authSlice = createSlice({
         console.log(action.payload)
         state.isLoading=false
         state.isSuccess=true
-        state.user = action.payload
-        state.isLoagin=true
-        localStorage.setItem('customer',JSON.stringify(action.payload))
+        state.registred = action.payload
+        
+        state.isLoagin=false
+       
+         
+        
+       
+          toast.success("User Created Successfuly")
+        
       })
       .addCase(createUser.rejected,(state,action)=>{
+        console.log(action.payload)
         state.isLoading=false
         state.isSuccess=false
         state.isError=true
         state.isLoagin=false
-        state.message=action.payload.responsa.data.message
+        state.message=action.payload.response.data.msg
+        toast.error("User Already Exist")
       })
       .addCase(logout,(state)=>{
         state.user = null
@@ -58,6 +67,7 @@ export const authSlice = createSlice({
         state.isLoagin=false
         window.open(`https://mern-recette-client.vercel.app`,'_self')
       })
+      .addCase(resetState,()=>initState)
      }
 
 })
