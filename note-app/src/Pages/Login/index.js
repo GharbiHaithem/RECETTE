@@ -13,7 +13,7 @@ import servicesAuth from '../../features/auth/authService'
 import {base_url } from '../../utils/baseUrl'
 const Login = () => {
     const navigate = useNavigate()
-    const userStates = useSelector(state=>state?.auth?.user)
+    const userStates = useSelector(state=>state?.auth)
     console.log(base_url);
     const dispatch=useDispatch()
     let schema = Yup.object().shape({
@@ -29,42 +29,42 @@ const Login = () => {
         validationSchema: schema,
         onSubmit: (values) => {
                 dispatch(login(values))
-                if(userStates){
+               
                     navigate('/myrecette')
-                }
+                
             //    setShowMessage(message)
           
         }
     })
    
     const [user,setUser] =useState(null)
-const userState = useSelector(state=>state?.auth?.user)
+
    
 
- useEffect(()=>{
-    const getUser = async()=>{
-        try{
+//  useEffect(()=>{
+//     const getUser = async()=>{
+//         try{
     
-        const url = `http://localhost:5000/api/auth/login/success`;
-        const response = await axios.get(url,{withCredentials:true})
-        console.log(response)
-         setUser(response.data.user)
+//         const url = `http://localhost:5000/api/auth/login/success`;
+//         const response = await axios.get(url,{withCredentials:true})
+//         console.log(response)
+//          setUser(response.data.user)
       
-        console.log(user)  
+//         console.log(user)  
        
      
-        }catch(err){
-      console.log(err)
-        }
+//         }catch(err){
+//       console.log(err)
+//         }
        
-      }
-      if(getUserFromGoogle)
-   {   getUser()}
+//       }
+//       if(getUserFromGoogle)
+//    {   getUser()}
     
- },[])
+//  },[])
  
 
-   console.log(user)
+//    console.log(user)
 
  
 
@@ -90,17 +90,17 @@ const userState = useSelector(state=>state?.auth?.user)
     //   , [dispatch,user,redirectionEnCours]);
 const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 
-      const handleClick = (e)=>{
-  e.preventDefault()
-  console.log(base_url);
-            window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
-            setGetUserFromGoogle(true)
+//       const handleClick = (e)=>{
+//   e.preventDefault()
+//   console.log(base_url);
+//             window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
+//             setGetUserFromGoogle(true)
   
        
          
          
         
-      }
+//       }
     return (
         <div className='container'>
         <div className='login-wrapper '>
@@ -136,7 +136,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'><FcGoogle  /><span  className='text-light'  onClick={(e)=>handleClick(e)}  > SIGN IN WITH GOOGLE</span></button>
+                                        {/* <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'><FcGoogle  /><span  className='text-light'  onClick={(e)=>handleClick(e)}  > SIGN IN WITH GOOGLE</span></button> */}
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>

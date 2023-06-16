@@ -48,7 +48,7 @@ export const authSlice = createSlice({
         
        
           toast.success("User Created Successfuly")
-        
+          localStorage.setItem('customer',JSON.stringify(action.payload))
       })
       .addCase(createUser.rejected,(state,action)=>{
         console.log(action.payload)
@@ -68,12 +68,9 @@ export const authSlice = createSlice({
         state.isSuccess=true
         state.user = action.payload
         
-        state.isLoagin=false
+        state.isLoagin=true
        
-         
-        
-       
-          toast.success("User Created Successfuly")
+          toast.success("Logged Successfuly")
         
       })
       .addCase(login.rejected,(state,action)=>{
@@ -83,7 +80,7 @@ export const authSlice = createSlice({
         state.isError=true
         state.isLoagin=false
         state.message=action.payload.response.data.msg
-        toast.error("User Already Exist")
+        toast.error("Failed To Login")
       })
       .addCase(logout,(state)=>{
         state.user = null

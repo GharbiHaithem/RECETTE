@@ -1,5 +1,5 @@
 const User = require('../model/user.model')
-const {generateToken} =require('../config/jwtToken')
+const {generateToken, generateRefreshToken} =require('../config/jwtToken')
 const userCtrl = {
     // createUser: async (req, res) => {
     //     const { googleId ,email,fullname,pic,secret} = req.body
@@ -62,9 +62,12 @@ const userCtrl = {
                     if (!findUser) {
                         //create new user
                         const newUser = await User.create({
-                            fullname:req.body.fullname,
+                            firstname:req.body.firstname,
+                            lastname:req.body.lastname,
+                            mobile:req.body.mobile,
                             email:req.body.email,
                             password:req.body.password,
+                            pic:req.body.pic
                            
                         })
             
@@ -96,16 +99,14 @@ const userCtrl = {
                 new: true,
                 upsert: true
             })
-            res.cookie("refreshToken", refreshToken, {
-                httpOnly: true,
-                maxAge: 72 * 60 * 60 * 1000
-            })
+          
             res.json({
                 _id: findUser._id,
                 firstname: findUser.firstname,
                 lastname: findUser.lastname,
                 email: findUser.email,
                 mobile: findUser.mobile,
+                pic:findUser.pic,
                 token: generateToken(findUser._id)
             })
         } else {

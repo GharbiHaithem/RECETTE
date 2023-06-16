@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import {base_url } from '../../utils/baseUrl'
-const API = axios.create({baseURL:"https://recette-crud.onrender.com/api"});
+const API = axios.create({baseURL:"http://localhost:5000/api"});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -13,6 +13,10 @@ API.interceptors.request.use((req)=>{
 const loginUser = async(data)=>{
     const response = await API.post(`/user/login`,data)
     console.log(response.data)
+    if(response.data.message !=="" && response.data.token !==undefined){
+        localStorage.setItem('customer',JSON.stringify(response.data))
+     
+    }
     return await response.data
 }
 

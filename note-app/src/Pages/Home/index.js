@@ -5,20 +5,20 @@ import { createUser } from '../../features/auth/authSlice';
 import RecetteCard from '../../Component/RecetteCard';
 import './style.css'
 const Home = ({user}) => {
-    console.log(user)
-   const dispatch = useDispatch()
+//     console.log(user)
+//    const dispatch = useDispatch()
   
-   useEffect(()=>{
-    if(user)
-    {dispatch(createUser({fullname:user?.displayName, email:user?.emails[0]?.value,googleId:user?.id,secret:user?.provider,pic:user?.photos[0]?.value}))
-}
+//    useEffect(()=>{
+//     if(user)
+//     {dispatch(createUser({fullname:user?.displayName, email:user?.emails[0]?.value,googleId:user?.id,secret:user?.provider,pic:user?.photos[0]?.value}))
+// }
        
                         
-},[dispatch,user])
-const recettestaus = useSelector(state=>state?.recette?.recette)
+// },[dispatch,user])
+// const recettestaus = useSelector(state=>state?.recette?.recette)
     return (
         <div className='home-wrapper my-4'>
-         <div className='container'>
+         {/* <div className='container'>
             <div className='row'> 
               {
                 recettestaus && recettestaus?.map((item,index)=>{
@@ -38,7 +38,7 @@ const recettestaus = useSelector(state=>state?.recette?.recette)
             </div>
          </div>
          
-          
+           */}
         </div>
     )
 }

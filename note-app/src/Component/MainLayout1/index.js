@@ -110,13 +110,16 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
    const[recettes,setRecettes]=useState([])
   useEffect(()=>{
     let data= [];
-    for(let i=0 ; i<recettestate.length ;i++){
-      data.push({id:i,recette:recettestate[i]._id,name:recettestate[i].title})
+    if(recettestate?.length > 0){
+      for(let i=0 ; i<recettestate.length ;i++){
+        data.push({id:i,recette:recettestate[i]._id,name:recettestate[i].title})
+      }
+      setRecettes(data)
     }
-    setRecettes(data)
+    
   },[recettestate]) 
   const toogleState = useSelector(state=>state?.toogle?.darkMode)
- 
+ const userName = useSelector(state=>state?.auth?.user)
   useEffect(()=>{
     if(toogleState){
         document.body.style.background ="#001529"
@@ -171,8 +174,9 @@ const MainLayout1 = ({ user,isScreenSmall }) => {
               <div className=' nav-item   dropdown'>
 
 
-                <button class="btn btn-transparent border border-0 " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" :  "60px"}`, height: `${isScreenSmall ? "35px" :  "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />
+                <button class="btn btn-transparent border border-0  " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              
+               { imgUrl.length === 0 ? <div className="d-flex align-items-center justify-content-center" style={{width:'35px',height:'35px',background:'#ffc107',borderRadius:'50%'}}><span className='text-uppercase ' style={{fontWeight:'900'}} >{userName?.firstname[0]}</span></div> :  <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" :  "60px"}`, height: `${isScreenSmall ? "35px" :  "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />}
                 </button>
 
 
