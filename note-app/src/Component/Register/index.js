@@ -14,7 +14,9 @@ const Register = () => {
     const isRegistred = useSelector(state => state?.auth?.isSuccess)
     const dispatch = useDispatch()
     let schema = Yup.object().shape({
-        fullname: Yup.string().required('required').min(6).max(20),
+        firstname: Yup.string().required('required').min(6).max(20),
+        lastname:Yup.string().required('required').min(5).max(20),
+        mobile:Yup.string().required('required mobile number'),
         email: Yup.string().required('required').email("Please Enter Email Valid"),
         password: Yup.string().required('Password Required').min(6).max(20)
     })
@@ -23,7 +25,9 @@ const Register = () => {
         initialValues: {
             email: '',
             password: '',
-            fullname: ''
+            firstname: '',
+            lastname:'',
+            mobile:''
         },
         validationSchema: schema,
         onSubmit: (values) => {
@@ -83,8 +87,12 @@ const Register = () => {
                             <p className='text-center'></p>
                             <form className='d-flex flex-column gap-10 ' onClick={formik.handleSubmit}>
 
-                                <CustomerInput type={'text'} title={'Full Name'} name='fullname' placeholder={'Full Name'} value={formik.values.fullname} onChange={formik.handleChange('fullname')} />
-                                {formik.touched.fullname && formik.errors.fullname && <span>{formik.errors.fullname}</span>}
+                                <CustomerInput type={'text'} title={'last Name'} name='lastname' placeholder={'last name'} value={formik.values.lastname} onChange={formik.handleChange('lastname')} />
+                                {formik.touched.lastname && formik.errors.lastname && <span>{formik.errors.lastname}</span>}
+                                <CustomerInput type={'text'} title={'First Name'} name='firstname' placeholder={'first name'} value={formik.values.firstname} onChange={formik.handleChange('firstname')} />
+                                {formik.touched.lastname && formik.errors.lastname && <span>{formik.errors.lastname}</span>}
+                                <CustomerInput type={'text'} title={'Mobile'} name='mobile' placeholder={'Mobile Number : '} value={formik.values.mobile} onChange={formik.handleChange('mobile')} />
+                                {formik.touched.lastname && formik.errors.lastname && <span>{formik.errors.lastname}</span>}
                                 <CustomerInput type={'email'} title={'Email'} name='email' placeholder={'Email ...'} value={formik.values.email} onChange={formik.handleChange('email')} />
                                 {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                                 <CustomerInput type={'password'} title={'Password'} name='password' className={'form-control'} placeholder={'Password'} value={formik.values.password} onChange={formik.handleChange('password')} />
