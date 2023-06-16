@@ -7,19 +7,20 @@ import './style.css'
 import SwiperSlider from '../../Component/SwiperSlider'
 import { FcGoogle } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser } from '../../features/auth/authSlice'
+import { createUser, login } from '../../features/auth/authSlice'
 import axios from 'axios'
 import servicesAuth from '../../features/auth/authService'
 import {base_url } from '../../utils/baseUrl'
 const Login = () => {
     const navigate = useNavigate()
-    
+    const userStates = useSelector(state=>state?.auth?.user)
     console.log(base_url);
     const dispatch=useDispatch()
     let schema = Yup.object().shape({
         email: Yup.string().required('required').email('must be an email valid'),
         password: Yup.string().required('required').min(4).max(20)
     })
+    
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -27,7 +28,10 @@ const Login = () => {
         },
         validationSchema: schema,
         onSubmit: (values) => {
-            //    dispatch(login(values))
+                dispatch(login(values))
+                if(userStates){
+                    navigate('/myrecette')
+                }
             //    setShowMessage(message)
           
         }
@@ -133,7 +137,7 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
                                         <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'><FcGoogle  /><span  className='text-light'  onClick={(e)=>handleClick(e)}  > SIGN IN WITH GOOGLE</span></button>
-                                        <button className='w-100 text-center  button  p-2' type='submit' onClick={()=>navigate('/myrecette')}><span className='text-light' >Login</span></button>
+                                        <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>
 

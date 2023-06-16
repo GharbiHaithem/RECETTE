@@ -59,13 +59,39 @@ export const authSlice = createSlice({
         state.message=action.payload.response.data.msg
         toast.error("User Already Exist")
       })
+      .addCase(login.pending,(state)=>{
+        state.isLoading=true
+      })
+      .addCase(login.fulfilled,(state,action)=>{
+        console.log(action.payload)
+        state.isLoading=false
+        state.isSuccess=true
+        state.user = action.payload
+        
+        state.isLoagin=false
+       
+         
+        
+       
+          toast.success("User Created Successfuly")
+        
+      })
+      .addCase(login.rejected,(state,action)=>{
+        console.log(action.payload)
+        state.isLoading=false
+        state.isSuccess=false
+        state.isError=true
+        state.isLoagin=false
+        state.message=action.payload.response.data.msg
+        toast.error("User Already Exist")
+      })
       .addCase(logout,(state)=>{
         state.user = null
         state.isSuccess=true
         state.isError=false
         localStorage.clear()
         state.isLoagin=false
-        window.open(`https://mern-recette-client.vercel.app`,'_self')
+        window.open(`https://recette-mern-projects.vercel.app`,'_self')
       })
       .addCase(resetState,()=>initState)
      }
