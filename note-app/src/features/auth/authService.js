@@ -11,7 +11,8 @@ API.interceptors.request.use((req)=>{
    return req;
 })
 const loginUser = async(data)=>{
-    const response = await API.post(`}/login`,data)
+    const response = await API.post(`/user/login`,data)
+    console.log(response.data)
     return await response.data
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerInput from '../CustomerInput'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
@@ -9,7 +9,7 @@ import { createUser, resetState } from '../../features/auth/authSlice'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
-    const history = useHistory()
+    const navigate = useNavigate()
     const msgState = useSelector(state => state?.auth?.message)
     const isRegistred = useSelector(state => state?.auth?.isSuccess)
     const dispatch = useDispatch()
@@ -47,10 +47,10 @@ const Register = () => {
     useEffect(() => {
         if (isRegistred === true) {
             setTimeout(() => {
-                history.push('/')
+                navigate('/')
             }, 2000)
         }
-    }, [isRegistred, history])
+    }, [isRegistred, navigate])
     useEffect(() => {
         const handleResize = () => {
             const isSmall = window.matchMedia("(max-width: 600px)").matches;
