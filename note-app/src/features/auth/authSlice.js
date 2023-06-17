@@ -1,8 +1,12 @@
+import { Navigate } from 'react-router-dom';
 import {createSlice,createAsyncThunk, createAction} from '@reduxjs/toolkit'
 import serviceauth from './authService' 
+
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css'
+
   const getTokenFromStoorage = JSON.parse(localStorage.getItem('customer')) 
+
 const initState = {
     user : getTokenFromStoorage,
     isError:false,
@@ -69,7 +73,7 @@ export const authSlice = createSlice({
         state.user = action.payload
         
         state.isLoagin=true
-       
+ 
           toast.success("Logged Successfuly")
         
       })
@@ -79,7 +83,7 @@ export const authSlice = createSlice({
         state.isSuccess=false
         state.isError=true
         state.isLoagin=false
-        state.message=action.payload.response.data.msg
+        state.message=action.payload.response.data.message
         toast.error("Failed To Login")
       })
       .addCase(logout,(state)=>{

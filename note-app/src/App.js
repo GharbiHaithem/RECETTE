@@ -97,7 +97,7 @@ useEffect(() => {
     <BrowserRouter>
   
        <Routes>
-            <Route path='/' element={<OpenRoute>< Login user={user}  /></OpenRoute>} />
+            <Route path='/' element={< Login user={user}  />} />
             <Route path='/register' element={<Register/>} />
             <Route path='/myrecette' element={<MainLayout1 user={user} isScreenSmall={isScreenSmall} />}>
           

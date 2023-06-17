@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk,createSlice} from '@reduxjs/toolkit'
 import servicerecette from './recetteService'
-
+import {toast} from 'react-toastify'
 
 const initState = {
 recette:[],
@@ -11,7 +11,8 @@ message:'',
 titleRecette:'',
 descriptionRecette:'',
 categoryRecette:'',
-imagesRecette:''
+imagesRecette:'',
+isLoagin:false
 }
 
 export const createRecette = createAsyncThunk('/recette/created',async(data,thunkAPI)=>{
@@ -98,7 +99,7 @@ export const recetteSlice = createSlice({
             state.isSuccess=true
             state.recette=action.payload.recettes
             state.pagination=action.payload.pagination
-         
+            state.isLoagin=true
          })
          .addCase(getAllRecettes.rejected,(state,action)=>{
           
@@ -136,6 +137,7 @@ export const recetteSlice = createSlice({
                     state.isLoading=false
                     state.isSuccess=true
                     state.DeletedRecette=action.payload
+                    toast.success("Recette deleted successfuly")
                  
                  })
                  .addCase(deleteRecette.rejected,(state,action)=>{

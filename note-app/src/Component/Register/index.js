@@ -36,7 +36,7 @@ const Register = () => {
 
             setTimeout(() => {
                 formik.resetForm()
-                dispatch(resetState())
+              
             }, 4000)
 
         }

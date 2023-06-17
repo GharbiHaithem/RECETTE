@@ -9,6 +9,7 @@ import img from '../../images/patiss2.jpg'
 import { useNavigate } from 'react-router-dom';
 import { max } from 'moment';
 import { useSelector } from 'react-redux';
+import './style.css'
 const RecetteCard = ({ item }) => {
   const navigate = useNavigate()
   let str = item?.description.slice(0,100)
@@ -60,7 +61,7 @@ React.useEffect(() => {
 
 }, [isScreenSmall]);
   return (
-    <Card className='col-sm-12' sx={{ maxWidth: isScreenSmall ? 345 :  345,height:max }} onClick={()=>navigate(`/myrecette/recette-details/${item?._id}`)}>
+    <Card className='col-sm-12' sx={{ maxWidth: isScreenSmall ? 345 :  345,height:'100' }} onClick={()=>navigate(`/myrecette/recette-details/${item?._id}`)}>
       <CardMedia
         sx={{ height: 140 }}
         image={item?.images[0]?.url}

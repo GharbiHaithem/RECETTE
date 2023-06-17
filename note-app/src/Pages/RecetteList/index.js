@@ -39,14 +39,14 @@ const ListRecette = ({isScreenSmall}) => {
    const currentPost = recetteState.slice(firstPostIndex,lastPostIndex)
 
     return (
-        <div className='list-recette-wrapper position-relative'>
+        <div className='list-recette-wrapper position-relative mt-3'>
             <div className='container'>
                 <div className='row'>
 
                     {
                         currentPost && currentPost?.map((item, index) => {
                             return (<>
-                                <div className='col-md-4  col-sm-12 col-lg-3' key={index}>
+                                <div className='col-md-4  col-sm-12 col-lg-3 ' key={index}>
                                     <RecetteCard item={item} />
                                 </div>
                             </>)

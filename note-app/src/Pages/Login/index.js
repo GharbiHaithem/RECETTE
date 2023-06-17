@@ -30,17 +30,22 @@ const Login = () => {
         onSubmit: (values) => {
                 dispatch(login(values))
                
-                    navigate('/myrecette')
                 
-            //    setShowMessage(message)
+          
           
         }
     })
-   
+
     const [user,setUser] =useState(null)
 
    
-
+setTimeout(()=>{
+console.log(userStates.isLoagin)
+},3000)
+   useEffect(()=>{
+    if(userStates?.isLoagin)
+    {navigate('/myrecette')}
+   },[navigate,userStates.isLoagin])
 //  useEffect(()=>{
 //     const getUser = async()=>{
 //         try{

@@ -42,4 +42,11 @@ body{
     width: 100px;
    }
   }
-  
+  .left-side-bar{
+    transform: translateX(-100%);
+    
+  }
+  .open{
+    transform: translateX(-12px);
+  border: none;
+  }

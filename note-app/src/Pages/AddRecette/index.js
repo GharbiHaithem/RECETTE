@@ -138,42 +138,46 @@ const AddRecette = () => {
             <div className='recette-wrapper gap-20'  >
 
 
-                <form className='formrecette d-flex flex-column gap-10' onSubmit={formik.handleSubmit}>
+               <div className='row'>
+       <div className='col-md-11'>
+       <form className='formrecette d-flex flex-column gap-10' onSubmit={formik.handleSubmit}>
 
-                    <div> <CustomerInput placeholder={'Enter title recette'} name={'title'} onChange={formik.handleChange('title')} value={formik.values.title} className={'input-form'} />
-                        {formik.touched.title && formik.errors.title}
-                    </div>
-                    <div className='d-flex gap-20'>
-                        <select name='category' onChange={formik.handleChange('category')} value={formik.values.category} className="form-select" aria-label="Default select example">
-                            <option >Selectionner la Category de votre recette</option>
-                            {categoryState && categoryState?.map((cat, index) => {
-                                return (<option key={index} >{cat?.title}</option>)
-                            })}
-                        </select>
-                        <button onClick={showForm} className='buttonModal flex-grow-1 p-2'><HiOutlineViewGridAdd /></button>
-                        {/* {formik.touched.category && formik.errors.category} */}
-                    </div>
-                    <div> <ReactQuill theme="snow" name='description' onChange={formik.handleChange('description')} value={formik.values.description} />
-                        {formik.touched.description && formik.errors.description}
-                    </div>
+<div> <CustomerInput placeholder={'Enter title recette'} name={'title'} onChange={formik.handleChange('title')} value={formik.values.title} className={'input-form'} />
+    {formik.touched.title && formik.errors.title}
+</div>
+<div className='d-flex gap-20'>
+    <select name='category' onChange={formik.handleChange('category')} value={formik.values.category} className="form-select" aria-label="Default select example">
+        <option >Selectionner la Category de votre recette</option>
+        {categoryState && categoryState?.map((cat, index) => {
+            return (<option key={index} >{cat?.title}</option>)
+        })}
+    </select>
+    <button onClick={showForm} className='buttonModal flex-grow-1 p-2'><HiOutlineViewGridAdd /></button>
+    {/* {formik.touched.category && formik.errors.category} */}
+</div>
+<div> <ReactQuill theme="snow" name='description' onChange={formik.handleChange('description')} value={formik.values.description} />
+    {formik.touched.description && formik.errors.description}
+</div>
 
-                    <div className='my-5 '>
-                        <Dropzone onDrop={acceptedFiles => handleImg(acceptedFiles)}>
-                            {({ getRootProps, getInputProps }) => (
-                                <section>
-                                    <div {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <p style={{ boxShadow: '0 0 10px #ddd p-5' }}>Drag 'n' drop some files here, or click to select files</p>
-                                    </div>
-                                </section>
-                            )}
-                        </Dropzone>
-                        {errorMsg && <div className='d-flex align-items-center justify-content-between gap-20 badge bg-secondary text-light p-2'><span >Error Type Image &nbsp; </span><span><MdCancel onClick={() => setErrorMsg(false)} style={{ color: 'white', fontSize: '17px' }} /></span></div>}
-                    </div>
-                    <button type='submit' className='button text-light p-2 fs-6'>{id !== undefined ? "UPDATE RECETTE" : "ADD RECETTE"}</button>
-                    {open && <FormModal onClose={closeForm} setOpen={setOpen} />}
-                </form>
-                <div className='d-flex flex-column gap-30 x'>
+<div className='my-5 '>
+    <Dropzone onDrop={acceptedFiles => handleImg(acceptedFiles)}>
+        {({ getRootProps, getInputProps }) => (
+            <section>
+                <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p style={{ boxShadow: '0 0 10px #ddd p-5' }}>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+            </section>
+        )}
+    </Dropzone>
+    {errorMsg && <div className='d-flex align-items-center justify-content-between gap-20 badge bg-secondary text-light p-2'><span >Error Type Image &nbsp; </span><span><MdCancel onClick={() => setErrorMsg(false)} style={{ color: 'white', fontSize: '17px' }} /></span></div>}
+</div>
+<button type='submit' className='button text-light p-2 fs-6'>{id !== undefined ? "UPDATE RECETTE" : "ADD RECETTE"}</button>
+{open && <FormModal onClose={closeForm} setOpen={setOpen} />}
+</form>
+       </div>
+<div className='col-md-1'>
+<div className='d-flex flex-column gap-30 mt-5 x' style={{width:'250px'}}>
                     {uploadState && uploadState?.map((img, index) => {
                         return (<div key={index} className='position-relative box-img' style={{ boxShadow: '0 0 10px #ddd' }}>
                             <div className='position-absolute cancel' style={{}}>
@@ -184,6 +188,9 @@ const AddRecette = () => {
                         )
                     })}
                 </div>
+</div>
+               </div>
+               
 
             </div>
         </>
