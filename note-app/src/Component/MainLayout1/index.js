@@ -97,17 +97,14 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
   console.log(stateUser)
   console.log(user)
   const localstorage = (JSON.parse(localStorage.getItem('customer'))) || stateUser
-  useEffect(() => {
-    const showImg = async () => {
-      if (localstorage && user) {
-        setImages(localstorage?.pic)
-      }
-     
-      return images
+  const [urlImg,setUrlImg]=useState(false)
+  useEffect(()=>{
+    if(localstorage){
+      setTimeout(()=>{
+       setUrlImg(imgUrl)
+      },3000)
     }
-    showImg()
-    console.log(images)
-  }, [localstorage, user])
+  },[localstorage,imgUrl])
   const recettestate = useSelector(state => state?.recette?.recette)
   const [recettes, setRecettes] = useState([])
   useEffect(() => {
@@ -179,7 +176,7 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
 
                     <button class="btn btn-transparent border border-0  " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 
-                      {imgUrl.length === 0 ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> : <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" : "60px"}`,display:'block', height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />}
+                      {imgUrl.length === 0  ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> :  urlImg?<img src={urlImg} style={{ width: `${isScreenSmall ? "35px" : "60px"}`,display:'block', height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />: "..."}
                     </button>
 
 

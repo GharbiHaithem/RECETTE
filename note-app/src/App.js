@@ -53,7 +53,7 @@ useEffect(()=>{
    }
    getUser()
 
-},[user])
+},[])
 useEffect(()=>{
 if(user){
   dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
