@@ -30,6 +30,13 @@ export const createUser = createAsyncThunk('/auth/create',async(data,thunkAPI)=>
       return  thunkAPI.rejectWithValue(error)
     }
 })
+export const createUserFromGoogle = createAsyncThunk('auth/create/userGoogle',async(data,thunkAPI)=>{
+  try {
+    return  await serviceauth.createUserFromGooglePassport(data)
+  } catch (error) {
+    return  thunkAPI.rejectWithValue(error)
+  }
+})
 export const resetState = createAction('resetState')
 export const logout = createAction('logoutAction')
 export const authSlice = createSlice({
@@ -92,10 +99,37 @@ export const authSlice = createSlice({
         state.isError=false
         localStorage.clear()
         state.isLoagin=false
-        window.open(`https://recette-mern-projects.vercel.app`,'_self')
+      
       })
       .addCase(resetState,()=>initState)
+      .addCase(createUserFromGoogle.pending,(state)=>{
+        state.isLoading=true
+      })
+      .addCase(createUserFromGoogle.fulfilled,(state,action)=>{
+        console.log(action.payload)
+        state.isLoading=false
+        state.isSuccess=true
+        state.user = action.payload
+        
+        state.isLoagin=true
+        // window.open('http://localhost:3000/myrecette','_self')
+         
+        
+       
+          toast.success("User logged Successfuly")
+          localStorage.setItem('customer',JSON.stringify(action.payload))
+      })
+      .addCase(createUserFromGoogle.rejected,(state,action)=>{
+        console.log(action.payload)
+        state.isLoading=false
+        state.isSuccess=false
+        state.isError=true
+        state.isLoagin=false
+
+        
+      })
      }
+    
 
 })
 export default authSlice.reducer

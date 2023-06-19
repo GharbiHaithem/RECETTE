@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import AddRecette from './Pages/AddRecette';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { createUser } from './features/auth/authSlice';
+import { createUser, createUserFromGoogle } from './features/auth/authSlice';
 import ListRecette from './Pages/RecetteList';
 import { getAllRecettes } from './features/recette/recetteSlice';
 import SingleRecette from './Component/SignleRecette';
@@ -21,12 +21,15 @@ import Register from './Component/Register';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { PrivateRoute } from './routers/privateRoute';
 
 function App() {
 
  console.log(base_url)
   const dispatch = useDispatch()
+
 const userstate  = useSelector(state=>state?.auth?.user)
+
   const [user,setUser] =useState(null)
   useEffect(()=>{
 if(userstate)
@@ -51,7 +54,11 @@ useEffect(()=>{
    getUser()
 
 },[])
-
+useEffect(()=>{
+if(user){
+  dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
+}
+},[user,dispatch])
 const toogleState = useSelector(state=>state?.toogle?.darkMode)
 useEffect(()=>{
  if(toogleState){
@@ -93,13 +100,15 @@ useEffect(() => {
 // },[dispatch])
 
 
+console.log({STORAGE:JSON.parse(localStorage.getItem('customer'))});
+
   return (
     <BrowserRouter>
   
        <Routes>
             <Route path='/' element={< Login user={user}  />} />
             <Route path='/register' element={<Register/>} />
-            <Route path='/myrecette' element={<MainLayout1 user={user} isScreenSmall={isScreenSmall} />}>
+            <Route path='/myrecette' element={<PrivateRoute><MainLayout1 user={user} isScreenSmall={isScreenSmall} /></PrivateRoute>}>
           
                 <Route index  element={<Home user={user}  /> } />
                 <Route path='add-recette' element={  <AddRecette/>  } />

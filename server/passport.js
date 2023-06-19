@@ -24,7 +24,8 @@ passport.use(new GoogleStrategy({
     function (accessToken, refreshToken, profile, callback) {
 
         const profilPicUrl = profile.photos[0].value
-       callback(null,profile)
+    console.log(profile)
+            callback(null,profile)
 
         // User.findOne({ googleId: profile.id }), async function (err, user) {
 

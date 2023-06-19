@@ -90,6 +90,8 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
     }
   }, [isScreenSmall])
  const[showLeftSideBar,setShowLeftSideBar] = useState(false)
+
+  const imgUrl = useSelector(state => state?.auth?.user?.pic)
   const [images, setImages] = useState("")
   const stateUser = useSelector(state => state?.auth?.user)
   console.log(stateUser)
@@ -100,13 +102,12 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
       if (localstorage && user) {
         setImages(localstorage?.pic)
       }
-      else { setImages(user?.pic) }
-      return await images
+     
+      return images
     }
     showImg()
     console.log(images)
   }, [localstorage, user])
-  const imgUrl = useSelector(state => state?.auth?.user?.pic)
   const recettestate = useSelector(state => state?.recette?.recette)
   const [recettes, setRecettes] = useState([])
   useEffect(() => {
@@ -178,7 +179,7 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
 
                     <button class="btn btn-transparent border border-0  " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 
-                      {imgUrl.length === 0 ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> : <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" : "60px"}`, height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />}
+                      {imgUrl.length === 0 ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> : <img src={imgUrl} style={{ width: `${isScreenSmall ? "35px" : "60px"}`,display:'block', height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />}
                     </button>
 
 

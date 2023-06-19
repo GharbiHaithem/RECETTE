@@ -139,7 +139,7 @@ const AddRecette = () => {
 
 
                <div className='row'>
-       <div className='col-md-11'>
+       <div className='col-md-10'>
        <form className='formrecette d-flex flex-column gap-10' onSubmit={formik.handleSubmit}>
 
 <div> <CustomerInput placeholder={'Enter title recette'} name={'title'} onChange={formik.handleChange('title')} value={formik.values.title} className={'input-form'} />
@@ -176,7 +176,7 @@ const AddRecette = () => {
 {open && <FormModal onClose={closeForm} setOpen={setOpen} />}
 </form>
        </div>
-<div className='col-md-1'>
+<div className='col-md-2'>
 <div className='d-flex flex-column gap-30 mt-5 x' style={{width:'250px'}}>
                     {uploadState && uploadState?.map((img, index) => {
                         return (<div key={index} className='position-relative box-img' style={{ boxShadow: '0 0 10px #ddd' }}>

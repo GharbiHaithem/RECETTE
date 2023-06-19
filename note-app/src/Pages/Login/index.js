@@ -7,14 +7,15 @@ import './style.css'
 import SwiperSlider from '../../Component/SwiperSlider'
 import { FcGoogle } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser, login } from '../../features/auth/authSlice'
+import { createUser, createUserFromGoogle, login } from '../../features/auth/authSlice'
 import axios from 'axios'
 import servicesAuth from '../../features/auth/authService'
 import {base_url } from '../../utils/baseUrl'
+
 const Login = () => {
     const navigate = useNavigate()
     const userStates = useSelector(state=>state?.auth)
-    console.log(base_url);
+   
     const dispatch=useDispatch()
     let schema = Yup.object().shape({
         email: Yup.string().required('required').email('must be an email valid'),
@@ -38,7 +39,7 @@ const Login = () => {
 
     const [user,setUser] =useState(null)
 
-   
+    const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
 setTimeout(()=>{
 console.log(userStates.isLoagin)
 },3000)
@@ -46,38 +47,43 @@ console.log(userStates.isLoagin)
     if(userStates?.isLoagin)
     {navigate('/myrecette')}
    },[navigate,userStates.isLoagin])
-//  useEffect(()=>{
-//     const getUser = async()=>{
-//         try{
+ useEffect(()=>{
+    const getUser = async()=>{
+        try{
     
-//         const url = `http://localhost:5000/api/auth/login/success`;
-//         const response = await axios.get(url,{withCredentials:true})
-//         console.log(response)
-//          setUser(response.data.user)
+        const url = `http://localhost:5000/api/auth/login/success`;
+        const response = await axios.get(url,{withCredentials:true})
+        console.log(response)
+         setUser(response.data.user)
       
-//         console.log(user)  
+        console.log(user)  
        
      
-//         }catch(err){
-//       console.log(err)
-//         }
+        }catch(err){
+      console.log(err)
+        }
        
-//       }
-//       if(getUserFromGoogle)
-//    {   getUser()}
+      }
+    if(getUserFromGoogle){getUser()
+    setTimeout(()=>{
+        console.log(user)
+       
+    },5000)
+    } 
+     
     
-//  },[])
+ },[getUserFromGoogle,user])
  
 
 //    console.log(user)
 
  
 
-    // const handleLoginFn = ()=>{
-    // //  
+    const handleLoginFn = ()=>{
+    //  
     
-    //     // dispatch(createUser({fullname:user?.displayName, email:user?.emails[0]?.value,googleId:user?.id,secret:user?.provider,pic:user?.photos[0]?.value}))
-    //   }
+     
+      }
      
     
  
@@ -93,19 +99,14 @@ console.log(userStates.isLoagin)
          
     // } 
     //   , [dispatch,user,redirectionEnCours]);
-const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
+
 
 //       const handleClick = (e)=>{
 //   e.preventDefault()
 //   console.log(base_url);
 //             window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
 //             setGetUserFromGoogle(true)
-  
-       
-         
-         
-        
-//       }
+//        }
     return (
         <div className='container'>
         <div className='login-wrapper '>
@@ -141,7 +142,8 @@ const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        {/* <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'><FcGoogle  /><span  className='text-light'  onClick={(e)=>handleClick(e)}  > SIGN IN WITH GOOGLE</span></button> */}
+                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' to={'http://localhost:5000/api/auth/google'} onClick={()=>{handleLoginFn()
+                                            setGetUserFromGoogle(true)}} ><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>

@@ -36,7 +36,7 @@ const ListRecette = ({isScreenSmall}) => {
     const recetteState = useSelector(state => state?.recette?.recette)
     console.log(recetteState)
     const statePagination = useSelector(state=>state?.recette?.pagination)
-   const currentPost = recetteState.slice(firstPostIndex,lastPostIndex)
+   const currentPost =recetteState && recetteState.slice(firstPostIndex,lastPostIndex)
 
     return (
         <div className='list-recette-wrapper position-relative mt-3'>

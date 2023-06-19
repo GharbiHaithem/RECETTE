@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import {base_url } from '../../utils/baseUrl'
-const API = axios.create({baseURL:"https://recette-crud.onrender.com/api"});
+const API = axios.create({baseURL:"http://localhost:5000/api"});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -28,8 +28,13 @@ const createUser = async(data)=>{
     localStorage.setItem('customer',JSON.stringify(response.data))
     return await response.data
 }   
-
+const createUserFromGooglePassport = async(data)=>{
+ console.log(data)
+ const response = await API.post('/user/createGoogleUser',data)
+ localStorage.setItem('customer',JSON.stringify(response.data))
+return await response.data
+}
 const servicesAuth = {
-    loginUser,createUser
+    loginUser,createUser,createUserFromGooglePassport
 }
 export default servicesAuth; 
