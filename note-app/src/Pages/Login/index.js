@@ -51,7 +51,7 @@ console.log(userStates.isLoagin)
     const getUser = async()=>{
         try{
     
-        const url = `http://localhost:5000/api/auth/login/success`;
+        const url = `https://recette-crud.onrender.com/api/auth/login/success`;
         const response = await axios.get(url,{withCredentials:true})
         console.log(response)
          setUser(response.data.user)
@@ -142,7 +142,7 @@ console.log(userStates.isLoagin)
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' to={'http://localhost:5000/api/auth/google'} onClick={()=>{handleLoginFn()
+                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' to={'https://recette-crud.onrender.com/api/auth/google'} onClick={()=>{handleLoginFn()
                                             setGetUserFromGoogle(true)}} ><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
