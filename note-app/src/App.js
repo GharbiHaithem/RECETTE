@@ -37,28 +37,28 @@ if(userstate)
  
   },[dispatch,userstate])
 
-useEffect(()=>{
-  const getUser = async()=>{
-    try{
-  const url = `https://recette-crud.onrender.com/api/auth/login/success`;
+// useEffect(()=>{
+//   const getUser = async()=>{
+//     try{
+//   const url = `https://recette-crud.onrender.com/api/auth/login/success`;
   
-  const response = await axios.get(url,{withCredentials:true})
-  console.log(response)
-   setUser(response.data.user)
+//   const response = await axios.get(url,{withCredentials:true})
+//   console.log(response)
+//    setUser(response.data.user)
 
-  console.log(user)  
-  }catch(err){
-  console.log(err)
-    }
-   }
-   getUser()
+//   console.log(user)  
+//   }catch(err){
+//   console.log(err)
+//     }
+//    }
+//    getUser()
 
-},[])
-useEffect(()=>{
-if(user){
-  dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
-}
-},[user,dispatch])
+// },[])
+// useEffect(()=>{
+// if(user){
+//   dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
+// }
+// },[user,dispatch])
 const toogleState = useSelector(state=>state?.toogle?.darkMode)
 useEffect(()=>{
  if(toogleState){
