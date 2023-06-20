@@ -77,36 +77,19 @@ console.log(userStates.isLoagin)
 
 //    console.log(user)
 
- 
-
-    const handleLoginFn = ()=>{
-    //  
-    
-     
-      }
-     
-    
- 
-    // useEffect(() => {
-    // if(redirectionEnCours)
-    //     getUser()
-    //     console.log(user)
-       
-      
-        
-    //  setRedirectionEnCours(false)
-        
-         
-    // } 
-    //   , [dispatch,user,redirectionEnCours]);
+useEffect(()=>{
+    if(user){
+      dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
+    }
+    },[user,dispatch])
 
 
-//       const handleClick = (e)=>{
-//   e.preventDefault()
-//   console.log(base_url);
-//             window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
-//             setGetUserFromGoogle(true)
-//        }
+      const handleClick = (e)=>{
+  e.preventDefault()
+  console.log(base_url);
+            window.open(`${base_url}/auth/google`,"_self")
+            setGetUserFromGoogle(true)
+       }
     return (
         <div className='container'>
         <div className='login-wrapper '>
@@ -142,8 +125,7 @@ console.log(userStates.isLoagin)
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' to={`${base_url}/auth/google`} onClick={()=>{handleLoginFn()
-                                            setGetUserFromGoogle(true)}} ><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
+                                        <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' onClick={handleClick}  ><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></button>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>
