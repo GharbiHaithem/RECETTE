@@ -90,8 +90,9 @@ export const authSlice = createSlice({
         state.isSuccess=false
         state.isError=true
         state.isLoagin=false
-        state.message=action.payload.response.data.message
         toast.error("Failed To Login")
+        state.message=action.payload.response.data.message
+       
       })
       .addCase(logout,(state)=>{
         state.user = null
