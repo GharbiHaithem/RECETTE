@@ -1,7 +1,8 @@
 
 import axios from 'axios'
+import { base_url } from '../../utils/baseUrl';
 
-const API = axios.create({baseURL:"https://recette-crud.onrender.com/api"});
+const API = axios.create({baseURL:base_url});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
