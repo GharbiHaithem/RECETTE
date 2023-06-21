@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const passport = require('passport')
 router.get("/auth/login/success",(req,res)=>{
-    console.log(req)
     if(req.user){
         res.status(200).json({
             error:false,
@@ -20,7 +19,7 @@ router.get("/auth/login/failed",(req,res)=>{
 })
 router.get("/auth/google",passport.authenticate("google",["profile","email"]))
 router.get("/auth/google/callback",passport.authenticate("google",{
-    successRedirect:`${process.env.BASE_URL_FRONT}/myrecette`,
+    successRedirect:"http://localhost:3000/myrecette",
     failureRedirect:"/login/failed"
 }))
 router.get("/auth/logout",async(req,res)=>{
@@ -31,7 +30,7 @@ router.get("/auth/logout",async(req,res)=>{
         }
         // Effectuer d'autres actions après la déconnexion réussie
         // Rediriger l'utilisateur vers une autre page, etc.
-        res.redirect(process.env.BASE_URL_FRONT)
+        res.redirect("http://localhost:3000")
       });
   
 })

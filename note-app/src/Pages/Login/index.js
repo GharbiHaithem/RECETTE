@@ -12,6 +12,7 @@ import axios from 'axios'
 import servicesAuth from '../../features/auth/authService'
 import {base_url } from '../../utils/baseUrl'
 
+
 const Login = () => {
     const navigate = useNavigate()
     const userStates = useSelector(state=>state?.auth)
@@ -37,59 +38,62 @@ const Login = () => {
         }
     })
 
-    const [user,setUser] =useState(null)
+    const [getUserFromLogin,setGetUserFromLogin] =useState(null)
 
-    const[getUserFromGoogle,setGetUserFromGoogle] = useState(false)
+
 setTimeout(()=>{
 console.log(userStates.isLoagin)
 },3000)
-   useEffect(()=>{
+useEffect(()=>{
     if(userStates?.isLoagin)
     {navigate('/myrecette')}
    },[navigate,userStates.isLoagin])
- useEffect(()=>{
-    const getUser = async()=>{
-        try{
-    
-        const url = `${base_url}/auth/login/success`;
-        const response = await axios.get(url,{withCredentials:true})
-        console.log(response)
-         setUser(response.data.user)
-      
-        console.log(user)  
-       
-     
-        }catch(err){
-      console.log(err)
-        }
-       
-      }
-    if(getUserFromGoogle){getUser()
-    setTimeout(()=>{
-        console.log(user)
-       
-    },5000)
-    } 
-     
-    
- },[getUserFromGoogle,user])
- 
 
+   const handleLogin=async()=>{  
+ setTimeout(()=>{
+
+ },10000)
+   }
+//  useEffect(()=>{
+//     console.log(googleLogin)
+//     if(googleLogin){
+//         dispatch(createUserFromGoogle())
+//     }
+    
+//  },[dispatch,googleLogin])
+//  useEffect(()=>{
+//     console.log(user)
+//   if(user){
+//     dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
+//   }
+//   },[user,dispatch])
 //    console.log(user)
 
-useEffect(()=>{
-    if(user){
-      dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
-    }
-    },[user,dispatch])
+ 
+
+    
+ 
+    // useEffect(() => {
+    // if(redirectionEnCours)
+    //     getUser()
+    //     console.log(user)
+       
+      
+        
+    //  setRedirectionEnCours(false)
+        
+         
+    // } 
+    //   , [dispatch,user,redirectionEnCours]);
 
 
-      const handleClick = (e)=>{
-  e.preventDefault()
-  console.log(base_url);
-            window.open(`${base_url}/auth/google`,"_self")
-            setGetUserFromGoogle(true)
-       }
+//       const handleClick = (e)=>{
+//   e.preventDefault()
+//   console.log(base_url);
+//             window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
+//             setGetUserFromGoogle(true)
+//        }
+
     return (
         <div className='container'>
         <div className='login-wrapper '>
@@ -125,7 +129,7 @@ useEffect(()=>{
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <button className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2' onClick={handleClick}  ><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></button>
+                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'  to={`http://localhost:5000/api/auth/google`} onClick={handleLogin}><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>

@@ -78,6 +78,7 @@ dispatch(getAllRecettes())
 navigate('/myrecette/recette-list')
 },1000)
 }
+
 const [liked , setIsLiked] = React.useState(false)
 const[open,setOpen] = React.useState(false)
 const showModal = ()=>{
@@ -103,13 +104,16 @@ React.useEffect(()=>{
   const selectElement3 = document.querySelector('.css-r40f8v-MuiTypography-root')
   const selectElement4 = document.querySelector('.css-i4bv87-MuiSvgIcon-root')
  const selectElement5 = document.querySelector('.anticon')
- if(selectElement && selectElement2 && selectElement3 && selectElement4 && selectElement5 && toogleState===true){
+ const selectElement6 = document.querySelector('.css-17lvz0h-MuiPaper-root-MuiCard-root ')
+ if(selectElement && selectElement2 && selectElement3 && selectElement4 && selectElement5 && selectElement6 && toogleState===true){
   selectElement.style.background = "#001529"
   selectElement.style.color="white"
   selectElement2.style.color="white"
   selectElement3.style.color="white"
   selectElement4.style.color="white"
   selectElement5.style.color="white"
+  selectElement6.style.color="white"
+  
 
  }else if(selectElement && selectElement2 && selectElement3 && selectElement4 && selectElement5 && toogleState===false){
   selectElement.style.background = "white"
@@ -124,7 +128,7 @@ React.useEffect(()=>{
 },[toogleState])
   return (<div className='container my-5'>
 
-<Card  sx={{ maxWidth: '100%' }}>
+<Card  sx={{ maxWidth: '100%' }} style={{background:`${toogleState ? "#001529" :"white "}`}}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe">
@@ -133,7 +137,7 @@ React.useEffect(()=>{
         }
         action={
           <IconButton aria-label="settings" className='dropdown bg-transparent'>
-            <button className="btn btn-transparent border border-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><MoreVertIcon /></button>
+            <button className="btn btn-danger border border-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><MoreVertIcon /></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><button className="dropdown-item" onClick={()=>{
       setOpen(true)
@@ -143,8 +147,9 @@ React.useEffect(()=>{
   </ul>
           </IconButton>
         }
-        title={user?.fullname}
+        title={user?.firstname + " " + user?.lastname}
         subheader={moment(recetteState?.createdAt).format('YYYY-MM-DD h:mm A').toLocaleString()}
+        color={`${toogleState ? "white" : "#001529"}`}
       />
       <CardMedia
         component="img"
@@ -155,7 +160,7 @@ React.useEffect(()=>{
         style={{objectFit:'cover'}}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary"  dangerouslySetInnerHTML={{__html:`${recetteState?.description}`}}>
+        <Typography variant="body2" color={`${toogleState ? "white" : "text.secondary"} `}  dangerouslySetInnerHTML={{__html:`${recetteState?.description}`}}>
        
         </Typography>
       </CardContent>

@@ -129,6 +129,7 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
     }
 
   }, [toogleState])
+  const [isHovered,setIsHovered] = useState(false)
   useEffect(() => {
     const e1 = document.querySelector('.header-main')
     if (toogleState) {
@@ -174,9 +175,16 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
                   <div className=' nav-item   dropdown '>
 
 
-                    <button class="btn btn-transparent border border-0  " type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className={`btn btn-transparent border border-0`}
+                     type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                      style={{  background: `${isHovered && toogleState ? '#001529' : (!isHovered && toogleState ? '#001529' : "white")  }`}}
+                      >
 
-                      {imgUrl.length === 0  ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> :  urlImg?<img src={urlImg} style={{ width: `${isScreenSmall ? "35px" : "60px"}`,display:'block', height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />: "..."}
+                      { imgUrl.length === 0  ? <div className="d-flex align-items-center justify-content-center" style={{ width: '35px', height: '35px', background: '#ffc107', borderRadius: '50%' }}><span className='text-uppercase ' style={{ fontWeight: '900' }} >{userName?.firstname[0]}</span></div> :  urlImg&&<img src={urlImg} style={{ width: `${isScreenSmall ? "35px" : "60px"}`,display:'block', height: `${isScreenSmall ? "35px" : "60px"}`, borderRadius: '50%' }} alt='rrrr' data-toggle='dropdown' />}
+                 
                     </button>
 
 
@@ -213,8 +221,8 @@ const MainLayout1 = ({ user, isScreenSmall }) => {
             </Link>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><Link class="dropdown-item" to={'add-recette'}><MdAssignmentAdd className='fs-3' />ADD</Link></li>
-              <li><Link class="dropdown-item" to="recette-list"><TbListNumbers className='fs-3' />LIST</Link></li>
+              <li><Link class="dropdown-item" to={'add-recette'} onClick={()=>setShowLeftSideBar(false)}><MdAssignmentAdd className='fs-3' />ADD</Link></li>
+              <li><Link class="dropdown-item" to="recette-list" onClick={()=>setShowLeftSideBar(false)}><TbListNumbers className='fs-3' />LIST</Link></li>
 
             </ul>
           </div>

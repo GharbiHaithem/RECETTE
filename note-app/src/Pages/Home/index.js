@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser } from '../../features/auth/authSlice';
+import { createUser, createUserFromGoogle } from '../../features/auth/authSlice';
 import RecetteCard from '../../Component/RecetteCard';
 import './style.css'
 const Home = ({user}) => {
@@ -12,8 +12,13 @@ const Home = ({user}) => {
 //     if(user)
 //     {dispatch(createUser({fullname:user?.displayName, email:user?.emails[0]?.value,googleId:user?.id,secret:user?.provider,pic:user?.photos[0]?.value}))
 // }
-       
-                        
+  const dispatch = useDispatch()     
+useEffect(()=>{
+    
+   dispatch(createUserFromGoogle())
+      
+     
+  },[dispatch])                     
 // },[dispatch,user])
 // const recettestaus = useSelector(state=>state?.recette?.recette)
     return (

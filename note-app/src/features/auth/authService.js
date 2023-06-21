@@ -1,8 +1,7 @@
 
 import axios from 'axios'
-import { base_url } from '../../utils/baseUrl';
-
-const API = axios.create({baseURL:base_url});
+import {base_url } from '../../utils/baseUrl'
+const API = axios.create({baseURL:"http://localhost:5000/api"});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -29,11 +28,12 @@ const createUser = async(data)=>{
     localStorage.setItem('customer',JSON.stringify(response.data))
     return await response.data
 }   
-const createUserFromGooglePassport = async(data)=>{
- console.log(data)
- const response = await API.post('/user/createGoogleUser',data)
- localStorage.setItem('customer',JSON.stringify(response.data))
-return await response.data
+const createUserFromGooglePassport = async()=>{
+
+ const response = await API.get('/auth/login/success',{withCredentials:true})
+ console.log(response)
+ localStorage.setItem('customer',JSON.stringify(response.data.user))
+return await response.data.user
 }
 const servicesAuth = {
     loginUser,createUser,createUserFromGooglePassport

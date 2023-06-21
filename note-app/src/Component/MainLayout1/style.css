@@ -50,3 +50,6 @@ body{
     transform: translateX(-12px);
   border: none;
   }
+  .button:hover{
+    background-color: #001529;
+  }

@@ -30,9 +30,9 @@ export const createUser = createAsyncThunk('/auth/create',async(data,thunkAPI)=>
       return  thunkAPI.rejectWithValue(error)
     }
 })
-export const createUserFromGoogle = createAsyncThunk('auth/create/userGoogle',async(data,thunkAPI)=>{
+export const createUserFromGoogle = createAsyncThunk('auth/create/userGoogle',async(thunkAPI)=>{
   try {
-    return  await serviceauth.createUserFromGooglePassport(data)
+    return  await serviceauth.createUserFromGooglePassport()
   } catch (error) {
     return  thunkAPI.rejectWithValue(error)
   }

@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import {base_url } from '../../utils/baseUrl'
-const API = axios.create({baseURL:base_url});
+const API = axios.create({baseURL:"http://localhost:5000/api"});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${

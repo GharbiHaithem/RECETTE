@@ -36,11 +36,21 @@ if(userstate)
  { dispatch(getAllRecettes())}
  
   },[dispatch,userstate])
+  const userStates = useSelector(state=>state?.auth)
+//   useEffect(()=>{
+//     dispatch(createUserFromGoogle())
+//  },[dispatch])
 
+ useEffect(()=>{
+    
+  dispatch(createUserFromGoogle())
+     
+    
+ },[dispatch])
 // useEffect(()=>{
 //   const getUser = async()=>{
 //     try{
-//   const url = `https://recette-crud.onrender.com/api/auth/login/success`;
+//   const url = `http://localhost:5000/api/auth/login/success`;
   
 //   const response = await axios.get(url,{withCredentials:true})
 //   console.log(response)
@@ -55,6 +65,7 @@ if(userstate)
 
 // },[])
 // useEffect(()=>{
+//   console.log(user)
 // if(user){
 //   dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
 // }

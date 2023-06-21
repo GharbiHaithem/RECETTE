@@ -15,7 +15,8 @@ import { IoIosCloseCircleOutline } from 'react-icons/io'
 import FormModal from '../../Component/ModalForm'
 import { getAllCat } from '../../features/category/categorySlice'
 import { createRecette, getAllRecettes, getRecette, resetAllRecette, updaterecette } from '../../features/recette/recetteSlice'
-import {useNavigate, useParams} from 'react-router-dom'
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
+import Spinner from '../../Component/Spinner'
 const AddRecette = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate() 
@@ -23,6 +24,8 @@ const AddRecette = () => {
     const {id} = useParams()
     const recetteState = useSelector(state=>state?.recette)
     const {titleRecette,descriptionRecette,categoryRecette,imagesRecette} = recetteState
+    const toogleState = useSelector(state=>state?.toogle?.darkMode)
+    const loadingUpload  = useSelector(state=>state?.upload?.isLoading)
     useEffect(()=>{
         if(id !==undefined){
         dispatch(getRecette(id))
@@ -38,12 +41,12 @@ const AddRecette = () => {
  
     const formik = useFormik({
       
-  
+   
         initialValues: {
-            title:id !== undefined ? titleRecette :'',
-            category:  id!==undefined ? categoryRecette :  '',
-            description: id !==undefined ? descriptionRecette : '',
-            images: id !== undefined ?  imagesRecette[0] ? imagesRecette[0].url : '' : ''
+            title: titleRecette ||'',
+            category:  categoryRecette  ||  '',
+            description: descriptionRecette  || '',
+            images:   imagesRecette[0] && imagesRecette[0].url ? '' : ''
         },
        
         validationSchema: schema,
@@ -71,15 +74,7 @@ const AddRecette = () => {
           },400)
         }
     })
-        
-    useEffect(()=>{
-        console.log(id);
-        if(id === undefined){
-         
-            formik.resetForm()
-        }
-       },[id,dispatch])
-       
+    
        
     
     useEffect(()=>{
@@ -155,25 +150,26 @@ const AddRecette = () => {
     <button onClick={showForm} className='buttonModal flex-grow-1 p-2'><HiOutlineViewGridAdd /></button>
     {/* {formik.touched.category && formik.errors.category} */}
 </div>
-<div> <ReactQuill theme="snow" name='description' onChange={formik.handleChange('description')} value={formik.values.description} />
+<div> <ReactQuill theme="snow" name='description' style={{color:`${toogleState ? "white" : "black"}`}} onChange={formik.handleChange('description')} value={formik.values.description} />
     {formik.touched.description && formik.errors.description}
 </div>
 
-<div className='my-5 '>
-    <Dropzone onDrop={acceptedFiles => handleImg(acceptedFiles)}>
+<div className='my-5 p-3'  style={{ boxShadow: '0 0 10px black '}}>
+    <Dropzone onDrop={acceptedFiles => handleImg(acceptedFiles)} >
         {({ getRootProps, getInputProps }) => (
             <section>
                 <div {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <p style={{ boxShadow: '0 0 10px #ddd p-5' }}>Drag 'n' drop some files here, or click to select files</p>
+                    <p style={{ boxShadow: '0 0 10px #ddd p-5',color:`${toogleState ? "white" : "black"}` }}>Drag 'n' drop some files here, or click to select files</p>
                 </div>
             </section>
         )}
     </Dropzone>
     {errorMsg && <div className='d-flex align-items-center justify-content-between gap-20 badge bg-secondary text-light p-2'><span >Error Type Image &nbsp; </span><span><MdCancel onClick={() => setErrorMsg(false)} style={{ color: 'white', fontSize: '17px' }} /></span></div>}
 </div>
-<button type='submit' className='button text-light p-2 fs-6'>{id !== undefined ? "UPDATE RECETTE" : "ADD RECETTE"}</button>
+<button type='submit' disabled={loadingUpload ? true : false} className='button text-light p-2 fs-6 d-flex align-items-center justify-content-center'>{id !== undefined ?  "UPDATE RECETTE" : "ADD RECETTE"  }{loadingUpload && <Spinner className='mx-1'/>}  </button>
 {open && <FormModal onClose={closeForm} setOpen={setOpen} />}
+
 </form>
        </div>
 <div className='col-md-2'>
