@@ -45,23 +45,23 @@ if(userstate)
      
     
 //  },[dispatch])
-// useEffect(()=>{
-//   const getUser = async()=>{
-//     try{
-//   const url = `http://localhost:5000/api/auth/login/success`;
+useEffect(()=>{
+  const getUser = async()=>{
+    try{
+  const url = `http://localhost:5000/api/auth/login/success`;
   
-//   const response = await axios.get(url,{withCredentials:true})
-//   console.log(response)
-//    setUser(response.data.user)
+  const response = await axios.get(url,{withCredentials:true})
+  console.log(response)
+   setUser(response.data.user)
 
-//   console.log(user)  
-//   }catch(err){
-//   console.log(err)
-//     }
-//    }
-//    getUser()
+  console.log(user)  
+  }catch(err){
+  console.log(err)
+    }
+   }
+   getUser()
 
-// },[])
+},[])
 // useEffect(()=>{
 //   console.log(user)
 // if(user){

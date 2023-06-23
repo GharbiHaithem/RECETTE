@@ -94,7 +94,7 @@ useEffect(()=>{
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'  to={`${base_url}/auth/google/callback`} onClick={()=>setLogGoogle(true)}><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
+                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'  to={`${base_url}/auth/google`} onClick={()=>setLogGoogle(true)}><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>
