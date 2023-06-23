@@ -38,8 +38,8 @@ const Login = () => {
         }
     })
 
-    const [getUserFromLogin,setGetUserFromLogin] =useState(null)
-
+    const [logGoogle,setLogGoogle] =useState(null)
+ 
 
 setTimeout(()=>{
 console.log(userStates.isLoagin)
@@ -49,51 +49,16 @@ useEffect(()=>{
     {navigate('/myrecette')}
    },[navigate,userStates.isLoagin])
 
-   const handleLogin=async()=>{  
- setTimeout(()=>{
-
- },10000)
+ 
+useEffect(()=>{
+   const getUser = async() =>{
+    const url = `${base_url}/auth/login/success`
+    const response = await axios.get(url,{withCredentials:true})
+    console.log(response.data)
+    localStorage.setItem('customer',JSON.stringify(response.data.user))
    }
-//  useEffect(()=>{
-//     console.log(googleLogin)
-//     if(googleLogin){
-//         dispatch(createUserFromGoogle())
-//     }
-    
-//  },[dispatch,googleLogin])
-//  useEffect(()=>{
-//     console.log(user)
-//   if(user){
-//     dispatch(createUserFromGoogle({firstname:user?.name?.familyName,lastname:user?.name?.givenName, email:user?.emails[0]?.value,googleId:user?.id,pic:user?.photos[0]?.value}))
-//   }
-//   },[user,dispatch])
-//    console.log(user)
-
- 
-
-    
- 
-    // useEffect(() => {
-    // if(redirectionEnCours)
-    //     getUser()
-    //     console.log(user)
-       
-      
-        
-    //  setRedirectionEnCours(false)
-        
-         
-    // } 
-    //   , [dispatch,user,redirectionEnCours]);
-
-
-//       const handleClick = (e)=>{
-//   e.preventDefault()
-//   console.log(base_url);
-//             window.open(`http://localhost:5000/api/auth/google/callback`,"_self")
-//             setGetUserFromGoogle(true)
-//        }
-
+   getUser() 
+},[])
     return (
         <div className='container'>
         <div className='login-wrapper '>
@@ -129,7 +94,7 @@ useEffect(()=>{
                                    <Link style={{ textDecoration: 'none', textAlign: 'end' ,marginBottom:'80px' }}>Forgot Password ?</Link>
                                    </div>
                                     <div className='bloc-btn gap-10 flex-column d-flex'>
-                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'  to={`${base_url}/auth/google`} onClick={handleLogin}><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
+                                        <Link className='w-100 d-flex align-items-center   justify-content-center gap-30   button  border border-1  p-2'  to={`${base_url}/auth/google`} onClick={()=>setLogGoogle(true)}><FcGoogle  /><span  className='text-light'   > SIGN IN WITH GOOGLE</span></Link>
                                         <button className='w-100 text-center  button  p-2' type='submit' ><span className='text-light' >Login</span></button>
 
                                     </div>

@@ -37,16 +37,14 @@ if(userstate)
  
   },[dispatch,userstate])
   const userStates = useSelector(state=>state?.auth)
-//   useEffect(()=>{
-//     dispatch(createUserFromGoogle())
-//  },[dispatch])
+ 
 
- useEffect(()=>{
+//  useEffect(()=>{
     
-  dispatch(createUserFromGoogle())
+//   dispatch(createUserFromGoogle())
      
     
- },[dispatch])
+//  },[dispatch])
 // useEffect(()=>{
 //   const getUser = async()=>{
 //     try{
